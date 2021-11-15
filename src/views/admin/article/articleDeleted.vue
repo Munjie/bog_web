@@ -1,4 +1,4 @@
-<template>
+`1111111<template>
   <div id="article-deleted">
     <p>文章管理（共计：{{ total }}篇）</p>
     <div class="article-table-wrap">
@@ -22,7 +22,7 @@
           <template slot-scope="scope">
             <img
               v-if="scope.row.cover"
-              :src="scope.row.cover" 
+              :src="scope.row.cover"
               style="width: 100%;height: 20px; cursor: pointer"
               @click="previewImg">
           </template>
@@ -73,8 +73,8 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column 
-          label="操作" 
+        <el-table-column
+          label="操作"
           fixed="right"
           width="112">
           <template slot-scope="scope">

@@ -399,5 +399,29 @@ export default {
     return axios.get('article/tagArticles', {
       params: params
     })
+  },
+  /**
+   * 获取后台菜单
+   */
+  getMenus () {
+    return axios.get('back/getMenus')
+  },
+
+  uploadExcel (params) {
+    return axios.post('task/createTask', params)
+  },
+  listTask (params) {
+    return axios.get('task/listTask', {
+      params: params
+    })
+  },
+  listAddress (params) {
+    return axios.get('address/listAddress', {
+      params: params
+    })
+  },
+  deleteTask (taskId) {
+    return axios.get('task/deleteTask/' + taskId)
   }
+
 }

@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div class="login-wrap">
-      <h1 class="login-title">博客系统-后台管理</h1>
+      <h1 class="login-title">后台管理</h1>
       <div class="login-form-wrap">
         <el-form :model="loginForm"
                 :rules="loginRules"

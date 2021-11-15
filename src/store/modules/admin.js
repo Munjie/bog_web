@@ -503,6 +503,54 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  getMenus (store) {
+    return api.getMenus()
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  uploadExcel (store, params) {
+    return api.uploadExcel(params)
+      .then((data) => {
+        return Promise.resolve(data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  /**
+   * 获取文章列表
+   */
+  listTask (store, params) {
+    return api.listTask(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  listAddress (store, params) {
+    return api.listAddress(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  deleteTask (store, taskId) {
+    return api.deleteTask(taskId)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  }
 }
 
 export default {

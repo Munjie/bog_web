@@ -11,6 +11,9 @@ const webConfigFriends = r => require.ensure([], () => r(require('VIEWS/admin/we
 const adminArticleList = r => require.ensure([], () => r(require('VIEWS/admin/categories/articleList.vue')), 'adminArticleList')
 const adminComments = r => require.ensure([], () => r(require('VIEWS/admin/comments/index.vue')), 'adminComments')
 const webConfigResume = r => require.ensure([], () => r(require('VIEWS/admin/webConfig/resume.vue')), 'webConfigResume')
+const excel = r => require.ensure([], () => r(require('VIEWS/admin/leftMenu/excel.vue')), 'excel')
+const taskList = r => require.ensure([], () => r(require('VIEWS/admin/leftMenu/taskList.vue')), 'taskList')
+const addressList = r => require.ensure([], () => r(require('VIEWS/admin/leftMenu/addressList.vue')), 'addressList')
 
 export default [
   {
@@ -121,6 +124,30 @@ export default [
     path: '/admin/webConfig/resume',
     name: 'webConfigResume',
     component: webConfigResume,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/admin/leftMenu/excel',
+    name: 'excel',
+    component: excel,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/admin/leftMenu/taskList',
+    name: 'taskList',
+    component: taskList,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/admin/leftMenu/addressList',
+    name: 'addressList',
+    component: addressList,
     meta: {
       requireAuth: true
     }
