@@ -26,7 +26,7 @@
           width="300">
         </el-table-column>
         <el-table-column
-          prop="createTime"
+          prop="createDate"
           label="创建时间"
           width="300">
         </el-table-column>
@@ -146,7 +146,7 @@ export default {
     },
     pageChange(currentPage) {
       this.scrollToTarget(0, false)
-      this.page = currentPage - 1
+      this.page = currentPage
       this.currentPage = currentPage
       this.getList()
     },

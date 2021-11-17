@@ -175,7 +175,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'screen'
+      'screen',
+      'adminInfo'
     ]),
     ...mapState(['setSidebar']),
   },
@@ -210,8 +211,13 @@ export default {
     },
     // 获取菜单
     getMenuList(){
-      this.getMenus().then(res=>{
-        debugger
+      debugger
+      let userNo
+      if (this.adminInfo) {
+        userNo = this.adminInfo.userNo
+      }
+      debugger
+      this.getMenus(userNo).then(res=>{
         this.menuList = res;
         console.log('6565656'+this.menuList)
       })

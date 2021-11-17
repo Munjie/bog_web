@@ -41,6 +41,7 @@
       <leftMenu />
       <!-- content -->
       <div class="view-wrap">
+        <back-header />
         <router-view></router-view>
       </div>
       <!-- content 结束 -->
@@ -85,6 +86,7 @@ import {
 import { scroll } from 'MIXINS/scroll'
 
 import mHeader from 'COMMON/mHeader/mHeader'
+import backHeader from 'COMMON/mHeader/backHeader'
 import mFooter from 'COMMON/mFooter/mFooter'
 import rightNav from 'COMMON/rightNav/rightNav'
 import loginLayout from 'VIEWS/admin/auth/login'
@@ -95,6 +97,7 @@ export default {
   name: 'app',
   components: {
     mHeader,
+    backHeader,
     rightNav,
     mFooter,
     loginLayout,

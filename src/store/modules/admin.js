@@ -78,7 +78,6 @@ const actions = {
   getQiniuToken () {
     return api.getQiniuToken()
       .then((data) => {
-        console.log(666878+data.message)
         return Promise.resolve(data.message)
       })
       .catch((error) => {
@@ -503,8 +502,8 @@ const actions = {
         return Promise.reject(error)
       })
   },
-  getMenus (store) {
-    return api.getMenus()
+  getMenus (store, params) {
+    return api.getMenus(params)
       .then((data) => {
         return Promise.resolve(data.data)
       })

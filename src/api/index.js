@@ -63,7 +63,7 @@ export default {
    * 管理员登录
    */
   adminLogin (params) {
-    return axios.post('back/login', Qs.stringify(params))
+    return axios.post('user/login', Qs.stringify(params))
   },
   /**
    * 获取七牛token
@@ -403,8 +403,8 @@ export default {
   /**
    * 获取后台菜单
    */
-  getMenus () {
-    return axios.get('back/getMenus')
+  getMenus (userNo) {
+    return axios.get('user/getMenus/' + userNo)
   },
 
   uploadExcel (params) {

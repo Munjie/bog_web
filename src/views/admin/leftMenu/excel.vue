@@ -126,7 +126,7 @@ export default {
     beforeUpload(file) {
       const loading = this.$loading({
         lock: true,
-        text: '数据上传处理中,请稍后...',
+        text: '数据处理中,请稍后...',
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'
       });
@@ -142,9 +142,11 @@ export default {
           this.taskId = res.data.taskId;
           this.$message.success("导入成功")
         } else {
+          loading.close();
           this.$message.error(res.data.message);
         }
       }).catch(err=>{
+        loading.close();
         this.$message.error(err.message)
       })
       return false;
