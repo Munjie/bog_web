@@ -14,6 +14,7 @@ const webConfigResume = r => require.ensure([], () => r(require('VIEWS/admin/web
 const excel = r => require.ensure([], () => r(require('VIEWS/admin/leftMenu/excel.vue')), 'excel')
 const taskList = r => require.ensure([], () => r(require('VIEWS/admin/leftMenu/taskList.vue')), 'taskList')
 const addressList = r => require.ensure([], () => r(require('VIEWS/admin/leftMenu/addressList.vue')), 'addressList')
+const moduleList = r => require.ensure([], () => r(require('VIEWS/admin/system/moduleList.vue')), 'moduleList')
 
 export default [
   {
@@ -148,6 +149,14 @@ export default [
     path: '/admin/leftMenu/addressList',
     name: 'addressList',
     component: addressList,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/admin/system/moduleList',
+    name: 'moduleList',
+    component: moduleList,
     meta: {
       requireAuth: true
     }

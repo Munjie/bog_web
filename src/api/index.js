@@ -422,6 +422,15 @@ export default {
   },
   deleteTask (taskId) {
     return axios.get('task/deleteTask/' + taskId)
+  },
+
+  listModule (params) {
+    return axios.get('module/listModule', {
+      params: params
+    })
+  },
+  deleteModule (id) {
+    return axios.get('module/deleteModule/' + id)
   }
 
 }

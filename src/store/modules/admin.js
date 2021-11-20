@@ -547,6 +547,33 @@ const actions = {
       .catch((error) => {
         return Promise.reject(error)
       })
+  },
+  /**
+   * 后台模块
+   */
+  listModule (store, params) {
+    return api.listModule(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  /**
+   * 删除模块
+   * @param store
+   * @param id
+   * @returns {Promise<unknown>}
+   */
+  deleteModule (store, id) {
+    return api.deleteModule(id)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
   }
 }
 

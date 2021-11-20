@@ -1,6 +1,5 @@
 <template>
   <div id="category-tag">
-    <p>分类/标签</p>
     <div class="category-tag-wrap">
       <div class="table-wrap">
         <div class="action-btn-wrap">
