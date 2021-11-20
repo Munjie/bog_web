@@ -30,13 +30,18 @@
           width="300">
         </el-table-column>
         <el-table-column
-          prop="distance"
-          label="公里数"
+          prop="duration"
+          label="送货时间(小时)"
           width="300">
         </el-table-column>
         <el-table-column
-          prop="duration"
-          label="送货时间(天)"
+          prop="distanceValue"
+          label="系统距离(公里)"
+          width="300">
+        </el-table-column>
+        <el-table-column
+          prop="useDistance"
+          label="使用距离(公里)"
           width="300">
         </el-table-column>
         <el-table-column

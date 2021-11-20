@@ -60,7 +60,6 @@
         })
       },
       toList (tagName) {
-        debugger
         this.$router.push({
           name: 'articleList',
           query: {

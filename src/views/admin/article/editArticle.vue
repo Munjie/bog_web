@@ -204,7 +204,6 @@
         this.$message({type: 'success', message: '上传成功', showClose: true});
       },
       uploadSuccess(e) {
-        debugger
         this.path =  e.message;
         console.log(this.path + 895656565)
         console.log(e.message)
@@ -379,7 +378,6 @@
         return markdown(str)
       },
       getParams() {
-        debugger
         let html = this.markdownHtml(this.article.articleContent)
         let params = {
           articleTitle: this.article.articleTitle,
@@ -396,7 +394,6 @@
         return params
       },
       publish() {
-        debugger
         let params = this.getParams()
         if (!params.articleTitle) {
           this.$toast('文章标题不能为空', 'error')

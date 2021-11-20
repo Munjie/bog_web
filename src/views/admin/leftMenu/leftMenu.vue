@@ -160,7 +160,6 @@ export default {
     }
   },
   created() {
-    debugger
     this.toggleLineData = this.lineStyle.normalLineData,
       this.getMenuList()
   },
@@ -211,12 +210,10 @@ export default {
     },
     // 获取菜单
     getMenuList(){
-      debugger
       let userNo
       if (this.adminInfo) {
         userNo = this.adminInfo.userNo
       }
-      debugger
       this.getMenus(userNo).then(res=>{
         this.menuList = res;
         console.log('6565656'+this.menuList)

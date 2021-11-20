@@ -71,6 +71,7 @@ export default{
         center: true
       }).then(() => {
         this.adminSignOut()
+        this.$router.push('/admin')
       }).catch(()=>{})
     },
     handleCommand(command) {

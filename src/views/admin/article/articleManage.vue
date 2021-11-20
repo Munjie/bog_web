@@ -153,7 +153,6 @@
         })
       },
       under(articleId) {
-        debugger
         console.log(articleId)
         this.showDialog('此操作会将该文章标记为删除，不再显示, 是否继续?', ()=> {
           this.deleteArticle(articleId)

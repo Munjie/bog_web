@@ -11,8 +11,6 @@ import {
   removeAccessToken,
   saveAccessToken
 } from '../../api/cacheService'
-import de from "element-ui/src/locale/lang/de";
-
 const state = {
   isLogin: getAccessToken() ? true : false, // eslint-disable-line
   tokenError: false,

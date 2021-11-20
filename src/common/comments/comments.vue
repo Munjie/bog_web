@@ -215,7 +215,6 @@
         console.log("changdu" + this.child)
       },
       getList() {
-        debugger
         if (this.isAdminWrap) {
           this.getComments(this.id)
             .then((data) => {

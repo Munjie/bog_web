@@ -157,7 +157,6 @@ export default {
       //resolve:同意
       //reject:拒绝
       return new Promise((resolve, reject) => {
-        debugger
         let isLt2M = file.size / 1024 / 1024 > 0.1 // 判定图片大小是否小于100k
         if (!isLt2M) {
           resolve()

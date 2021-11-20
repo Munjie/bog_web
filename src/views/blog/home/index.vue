@@ -66,7 +66,6 @@
         'getBlogArticleList'
       ]),
       async getList() {
-        debugger
         this.loading = true
         this.getBlogArticleList({
           pageNo: this.pageNo,

@@ -68,7 +68,6 @@
         'tagArticles'
       ]),
       initData() {
-        debugger
         console.log(123456789)
         this.tagName = this.$route.query.id
         this.total = 0
