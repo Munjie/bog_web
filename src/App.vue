@@ -181,7 +181,7 @@ export default {
     //     log: false
     //   })
     // }, 1000)
-    setTimeout(function () {
+/*    setTimeout(function () {
       L2Dwidget.init({
         model: {
           jsonPath: 'https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json',
@@ -210,7 +210,7 @@ export default {
         }
 
       });
-    },1000);
+    },1000);*/
   },
   mounted() {
     document.title = `Munjie`;
