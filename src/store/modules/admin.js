@@ -49,8 +49,10 @@ const actions = {
    * 管理员登录
    */
   adminLogin (store, params) {
+    debugger
     return api.adminLogin(params)
       .then((data) => {
+        debugger
         saveAccessToken(data.data.token, data.data.expTime)
         cachedAdminInfo.save(data.data.user)
         store.commit(SET_ADMIN_INFO, data.data.user)

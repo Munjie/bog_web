@@ -210,11 +210,11 @@ export default {
     },
     // 获取菜单
     getMenuList(){
-      let userNo
+      let userId
       if (this.adminInfo) {
-        userNo = this.adminInfo.userNo
+        userId = this.adminInfo.id
       }
-      this.getMenus(userNo).then(res=>{
+      this.getMenus(userId).then(res=>{
         this.menuList = res;
         console.log('6565656'+this.menuList)
       })

@@ -15,7 +15,7 @@ import {
 
 /* eslint-disable */
 const API_ROOT = 'http://www.munjie.com/blog/'
-const API_ROOT_DEV = 'http://localhost:8088/blog/'
+const API_ROOT_DEV = 'http://localhost:8090/blog/'
 
 /* eslint-enable */
 axios.defaults.baseURL = (process.env.NODE_ENV === 'production' ? API_ROOT : API_ROOT_DEV)
@@ -63,7 +63,7 @@ export default {
    * 管理员登录
    */
   adminLogin (params) {
-    return axios.post('user/login', Qs.stringify(params))
+    return axios.post('system/login', Qs.stringify(params))
   },
   /**
    * 获取七牛token
@@ -403,8 +403,8 @@ export default {
   /**
    * 获取后台菜单
    */
-  getMenus (userNo) {
-    return axios.get('user/getMenus/' + userNo)
+  getMenus (userId) {
+    return axios.get('system/getMenus/' + userId)
   },
 
   uploadExcel (params) {

@@ -10,7 +10,7 @@
             <el-input type="text"
                       :maxlength="11"
                       placeholder="请输入用户名"
-                      v-model="loginForm.username">
+                      v-model="loginForm.userName">
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
@@ -43,11 +43,11 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
+        userName: '',
         password: ''
       },
       loginRules: {
-        username: [
+        userName: [
           { required: true, message: '未填写密码', trigger: 'blur' },
         ],
         password: [
@@ -63,14 +63,14 @@ export default {
       'adminInfo'
     ]),
     btnDisabled () {
-      return this.loginForm.username === '' ||
+      return this.loginForm.userName === '' ||
             this.loginForm.password === '' ||
             this.loginForm.password.length < 6
     }
   },
   mounted () {
     if (this.adminInfo) {
-      this.loginForm.username = this.adminInfo.userName
+      this.loginForm.userName = this.adminInfo.userName
     }
   },
   methods: {
@@ -81,11 +81,10 @@ export default {
       this.$refs['loginForm'].validate((valid) => {
         if (valid) {
           let loginFormParams = {
-            username: this.loginForm.username,
+            userName: this.loginForm.userName,
             password: this.loginForm.password
           }
-          this.adminLogin(loginFormParams)
-            .then((info) => {
+          this.adminLogin(loginFormParams).then((info) => {
               window.location.reload()
             })
             .catch((err) => {

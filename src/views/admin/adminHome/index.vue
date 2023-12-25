@@ -26,13 +26,11 @@
       ])
     },
     created() {
-      debugger
       if (this.adminInfo) {
         this.roleId = this.adminInfo.roleId
       }
     },
     mounted() {
-      debugger
       if (this.adminInfo) {
         this.roleId = this.adminInfo.roleId
       }
