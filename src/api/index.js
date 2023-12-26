@@ -431,6 +431,14 @@ export default {
   },
   deleteModule (id) {
     return axios.get('module/deleteModule/' + id)
+  },
+  uploadScore (params) {
+    return axios.post('score-manage/upload-score', params)
+  },
+  pageScore (params) {
+    return axios.get('score-manage/page-score', {
+      params: params
+    })
   }
 
 }

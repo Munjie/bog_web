@@ -576,6 +576,25 @@ const actions = {
       .catch((error) => {
         return Promise.reject(error)
       })
+  },
+
+  uploadScore (store, params) {
+    return api.uploadScore(params)
+      .then((data) => {
+        return Promise.resolve(data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  pageScore (store, params) {
+    return api.pageScore(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
   }
 }
 
