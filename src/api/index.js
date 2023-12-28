@@ -439,6 +439,9 @@ export default {
     return axios.get('score-manage/page-score', {
       params: params
     })
+  },
+  listLesson () {
+    return axios.get('score-manage/list-lesson')
   }
 
 }

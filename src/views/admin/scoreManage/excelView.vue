@@ -21,6 +21,14 @@
           clearable @clear="handleQuery(queryParams)"
         ></el-input>
       </el-form-item>
+      <el-select v-model="queryParams.lesson" clearable placeholder="请选择班级" size="small" @change="selectChange($event)">
+        <el-option
+          v-for="item in lessonList"
+          :key="item"
+          :label="item"
+          :value="item">
+        </el-option>
+      </el-select>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -39,7 +47,7 @@
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary"  size="mini" @click="downLoad">导出报告</el-button>
+        <el-button type="primary" size="mini" @click.native="downLoad">导出报告</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -98,6 +106,7 @@
 <script>
 import {mapActions} from "vuex";
 import axios from "axios";
+import downLoadFile from "../../../util/fileutil";
 
 export default {
   data() {
@@ -108,26 +117,30 @@ export default {
       pageSize: 5,
       name: "",
       number: "",
+      lesson: '',
       dialogFormVisible: false,
       multipleSelection: [],
-      headerBg: "headerBg",
       //form表单查询的数据
+      headerBg: "headerBg",
       queryParams: {
         name: '',
         number: '',
+        lesson:''
       },
       listData: [],
-      fileList: []
-
+      fileList: [],
+      lessonList:[]
     }
   },
   created() {
-    this.handleQuery()
+    this.handleQuery();
+    this.getLesson()
   },
   methods: {
     ...mapActions([
       'uploadScore',
-      'pageScore'
+      'pageScore',
+      'listLesson'
     ]),
 //搜索按钮
     handleQuery() {
@@ -136,12 +149,13 @@ export default {
         pageSize: this.pageSize,
         name: this.queryParams.name,
         number: this.queryParams.number,
+        lesson: this.queryParams.lesson,
       }).then(res => {
-        console.log("table数据："+res)
-          this.tableData = res.records
-          this.total = res.total
-        })
-        .catch(()=> {
+        console.log("table数据：" + res)
+        this.tableData = res.records
+        this.total = res.total
+      })
+        .catch(() => {
           this.addressList = []
         })
     },
@@ -154,11 +168,12 @@ export default {
       this.handleQuery()
     },
     //重置按钮
-    resetQuery () {
-     //清空搜索栏
+    resetQuery() {
+      //清空搜索栏
       this.queryParams = {
         name: '',
         number: '',
+        lesson: '',
       }
       this.handleQuery()
     },
@@ -167,67 +182,26 @@ export default {
       this.$message.success("导入成功")
       this.handleQuery()
     },
-    downLoad() {  //导出excel文件
-      window.open('http://127.0.0.1:8090/blog/score-manage/export-data')
+   downLoad() {
+      //导出excel文件
+     if (this.lesson === "") {
+       this.$message.error('请选择要导出的班级')
+       return
+     }
+      window.open('http://127.0.0.1:8090/blog/score-manage/export-data/'+this.lesson);
       this.$message.success("导出成功");
     },
-
-    doExport() {
-      this.toInterface("http://localhost:8090/blog/score-manage/export-data")
-    },
-
-    toInterface(url) {
-      let mergeOptions = {
-        url: url,
-        method: "post",
-        headers: {
-          Accept: "*",
-          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;",
-        },
-        responseType: "blob",
-      };
-      mergeOptions.paramType = "body";
-      mergeOptions.headers["Content-Type"] =
-        "application/json; charset=UTF-8";
-      axios(mergeOptions)
-        .then(function(response) {
-          console.log(response)
-          var blob = new Blob([response.data], {
-            type: "application/vnd.ms-excel"
-          });
-          var href = window.URL.createObjectURL(blob); //创建下载的链接
-          var link = document.createElement("a");
-          link.href = href;
-          link.setAttribute("download", "学生信息.xls");
-          document.body.appendChild(link);
-          link.click(); //点击下载
-
-          document.body.removeChild(link); //下载完成移除元素
-          window.URL.revokeObjectURL(href); //释放掉blob对象
+    getLesson(){
+      this.listLesson().then(res => {
+        this.lessonList = res
+      })
+        .catch(() => {
+          this.lessonList = []
         })
-        .catch(function(error) {
-          console.error(error);
-        });
     },
-      exportExcel() {
-      const apiUrl = 'http://localhost:8090/blog/score-manage/export-data';
-      axios({
-        baseURL: '',
-        url: apiUrl,
-        method: 'get',
-        responseType: 'blob',
-      }).then(res => {
-        const filename = res.headers['content-disposition'].split('filename=')[1];
-        const blob = new Blob([res.data], { type: 'application/octet-stream' });
-        const objectUrl = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = objectUrl;
-        link.download = filename;
-        link.click();
-        URL.revokeObjectURL(objectUrl);
-      });
+    selectChange(value){
+      this.lesson = value;
     }
-
   }
 }
 </script>

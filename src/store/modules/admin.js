@@ -595,6 +595,15 @@ const actions = {
       .catch((error) => {
         return Promise.reject(error)
       })
+  },
+  listLesson (store) {
+    return api.listLesson()
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
   }
 }
 
