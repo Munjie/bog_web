@@ -165,7 +165,7 @@ export default {
   },
   created() {
     if (!this.isAdminWrap) {
-      this.getBlogInfo().catch(()=> {})
+   //   this.getBlogInfo().catch(()=> {})
     }
     // setTimeout(() => {
     //   window.L2Dwidget.init({

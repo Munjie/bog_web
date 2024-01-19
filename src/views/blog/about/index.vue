@@ -52,7 +52,7 @@ export default {
   },
   created() {
     this.loading = true
-    this.getBlogAboutMe()
+/*    this.getBlogAboutMe()
       .then((data) => {
         this.htmlContent = data.html
         this.qrcode = data.qrcode
@@ -60,7 +60,7 @@ export default {
       })
       .catch(()=> {
         this.loading = false
-      })
+      })*/
   },
   methods: {
     ...mapActions([

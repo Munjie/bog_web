@@ -59,7 +59,7 @@
     },
     created() {
       //this.pageNo = 0
-      this.getList()
+     // this.getList()
     },
     methods: {
       ...mapActions([
