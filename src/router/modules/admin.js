@@ -16,6 +16,7 @@ const taskList = r => require.ensure([], () => r(require('VIEWS/admin/leftMenu/t
 const addressList = r => require.ensure([], () => r(require('VIEWS/admin/leftMenu/addressList.vue')), 'addressList')
 const moduleList = r => require.ensure([], () => r(require('VIEWS/admin/system/moduleList.vue')), 'moduleList')
 const excelView = r => require.ensure([], () => r(require('VIEWS/admin/scoreManage/excelView.vue')), 'excelView')
+const uploadScore = r => require.ensure([], () => r(require('VIEWS/admin/scoreManage/uploadScore.vue')), 'uploadScore')
 
 export default [
   {
@@ -166,6 +167,14 @@ export default [
     path: '/admin/scoreManage/excelView',
     name: 'excelView',
     component: excelView,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/admin/scoreManage/uploadScore',
+    name: 'uploadScore',
+    component: uploadScore,
     meta: {
       requireAuth: true
     }
