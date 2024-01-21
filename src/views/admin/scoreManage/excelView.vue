@@ -191,7 +191,7 @@ export default {
        this.$message.error('请选择要导出的班级')
        return
      }
-      window.open('http://127.0.0.1:8090/blog/score-manage/export-data/'+this.lesson);
+      window.open('http://www.munjie.com/blog/score-manage/export-data/'+this.lesson);
       this.$message.success("导出成功");
     },
     getLesson(){
