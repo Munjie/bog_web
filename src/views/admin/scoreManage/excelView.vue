@@ -36,7 +36,7 @@
       <el-form-item>
         <el-upload
           class="upload-demo"
-          :action="'http://localhost:8090/blog/score-manage/upload-score'"
+          :action="'http://127.0.0.1:8090/blog/score-manage/upload-score'"
           multiple
           name="file"
           :limit="1"
