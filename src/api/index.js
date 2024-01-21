@@ -442,6 +442,11 @@ export default {
   },
   listLesson () {
     return axios.get('score-manage/list-lesson')
+  },
+  deleteScore (params) {
+    return axios.get('score-manage/delete', {
+      params: params
+    })
   }
 
 }

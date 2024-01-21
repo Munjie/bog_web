@@ -32,6 +32,7 @@
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleDelete">删除</el-button>
       </el-form-item>
       <el-form-item>
         <el-upload
@@ -140,7 +141,8 @@ export default {
     ...mapActions([
       'uploadScore',
       'pageScore',
-      'listLesson'
+      'listLesson',
+      'deleteScore'
     ]),
 //搜索按钮
     handleQuery() {
@@ -152,6 +154,20 @@ export default {
         lesson: this.queryParams.lesson,
       }).then(res => {
         console.log("table数据：" + res)
+        this.tableData = res.records
+        this.total = res.total
+      })
+        .catch(() => {
+          this.addressList = []
+        })
+    },
+    // 删除
+    handleDelete() {
+      this.deleteScore({
+        name: this.queryParams.name,
+        number: this.queryParams.number,
+        lesson: this.queryParams.lesson,
+      }).then(res => {
         this.tableData = res.records
         this.total = res.total
       })

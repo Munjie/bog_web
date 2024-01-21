@@ -605,6 +605,15 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  deleteScore (store, params) {
+    return api.deleteScore(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  }
 }
 
 export default {
