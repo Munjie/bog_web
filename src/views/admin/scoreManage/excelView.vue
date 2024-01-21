@@ -35,19 +35,6 @@
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleDelete">删除</el-button>
       </el-form-item>
       <el-form-item>
-        <el-upload
-          class="upload-demo"
-          :action="'http://127.0.0.1:8090/blog/score-manage/upload-score'"
-          multiple
-          name="file"
-          :limit="1"
-          :auto-upload="true"
-          :on-success="handleSuccess"
-          :file-list="fileList">
-          <el-button size="mini" type="primary">点击上传</el-button>
-        </el-upload>
-      </el-form-item>
-      <el-form-item>
         <el-button type="primary" size="mini" @click.native="downLoad">导出报告</el-button>
       </el-form-item>
     </el-form>

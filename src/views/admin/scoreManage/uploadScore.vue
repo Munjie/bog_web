@@ -21,7 +21,7 @@
         <span>成功导入了<strong style="font-size: 20px;">{{uploadedNum}}</strong>条数据。</span>
       </div>
     </div>
-    <el-button type="primary" @click="toDetailList" round v-if="resultFlag">查看处理数据</el-button>
+    <el-button type="primary" @click="toDetailList" round v-if="resultFlag">查看学生成绩</el-button>
   </div>
 </template>
 
@@ -67,11 +67,11 @@ export default {
       formData.append('info', new Blob([JSON.stringify(this.info)], {type: "application/json"}));
       this.visible = false;
       this.uploadScore(formData).then(res=>{
+        debugger
         if (res.code === 200) {
           loading.close();
           this.resultFlag = true;
-          this.uploadedNum = res.data.count;
-          this.taskId = res.data.taskId;
+          this.uploadedNum = res.data;
           this.$message.success("导入成功")
         } else {
           loading.close();
@@ -87,9 +87,6 @@ export default {
     toDetailList() {
       this.$router.push({
         name: 'excelView',
-        query: {
-          taskId: this.taskId
-        }
       })
     },
   },
