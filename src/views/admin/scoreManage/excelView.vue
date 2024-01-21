@@ -36,7 +36,7 @@
       <el-form-item>
         <el-upload
           class="upload-demo"
-          :action="'http://127.0.0.1:8090/blog/score-manage/upload-score'"
+          :action="'http://116.62.45.85:8090/blog/score-manage/upload-score'"
           multiple
           name="file"
           :limit="1"
@@ -188,7 +188,7 @@ export default {
        this.$message.error('请选择要导出的班级')
        return
      }
-      window.open('http://127.0.0.1:8090/blog/score-manage/export-data/'+this.lesson);
+      window.open('http://116.62.45.85:8090/blog/score-manage/export-data/'+this.lesson);
       this.$message.success("导出成功");
     },
     getLesson(){
