@@ -95,7 +95,11 @@
 import {mapActions} from "vuex";
 import axios from "axios";
 import downLoadFile from "../../../util/fileutil";
+const API_ROOT = 'http://www.munjie.com/blog'
+const API_ROOT_DEV = 'http://localhost:8090/blog'
 
+/* eslint-enable */
+let url = (process.env.NODE_ENV === 'production' ? API_ROOT : API_ROOT_DEV)
 export default {
   data() {
     return {
@@ -191,7 +195,8 @@ export default {
        this.$message.error('请选择要导出的班级')
        return
      }
-      window.open('http://www.munjie.com/blog/score-manage/export-data/'+this.lesson);
+     console.log("down log:  "+ url)
+      window.open(url + '/score-manage/export-data/'+this.lesson);
       this.$message.success("导出成功");
     },
     getLesson(){
