@@ -20,19 +20,8 @@
           width="300">
         </el-table-column>
         <el-table-column
-          prop="originAdd"
-          label="起始地址"
-          show-overflow-tooltip
-          width="300">
-        </el-table-column>
-        <el-table-column
           prop="createDate"
           label="创建时间"
-          width="300">
-        </el-table-column>
-        <el-table-column
-          prop="taskDescription"
-          label="备注"
           width="300">
         </el-table-column>
         <el-table-column

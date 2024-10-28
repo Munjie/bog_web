@@ -23,16 +23,6 @@
                   <el-input v-model="info.taskName" :maxlength="100" size="small"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :span="24">
-                <el-form-item prop="originAdd" label="起始地址">
-                  <el-input v-model="info.originAdd" :maxlength="100" size="small"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="24">
-                <el-form-item prop="taskDescription" label="任务描述">
-                  <el-input v-model="info.taskDescription" :maxlength="200" placeholder="不超过200字" :rows="4" type="textarea" style="margin-top: 8px;"></el-input>
-                </el-form-item>
-              </el-col>
             </el-row>
           </div>
           <div class="form-upload" v-if="active === 1" style="margin: 50px">
@@ -102,12 +92,6 @@ export default {
       rules: {
         taskName: [
           {required: true, message: '请填写任务名称', trigger: 'blur'}
-        ],
-        taskDescription: [
-          {required: true, message: '请填写任务描述', trigger: 'blur'}
-        ],
-        originAdd: [
-          {required: true, message: '请填写起始地址', trigger: 'blur'}
         ],
       },
       active: 0,

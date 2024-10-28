@@ -35,15 +35,15 @@ axios.interceptors.request.use(function (config) {
 })
 
 // Add a response interceptor
-axios.interceptors.response.use(function (response) {
+/*axios.interceptors.response.use(function (response) {
   if (response.data.code !== 200) {
-    // 清空登录信息
+/!*    // 清空登录信息
     removeAccessToken()
     cachedAdminInfo.delete()
     // // 弹出提示信息
     // store.commit(SHOW_TOKEN_ERROR, true)
     // // 弹出登录窗口
-    store.commit(IS_LOGIN, false)
+    store.commit(IS_LOGIN, false)*!/
     let error = {
       msg: response.data.message
     }
@@ -56,7 +56,28 @@ axios.interceptors.response.use(function (response) {
     msg: '请求出错'
   }
   return Promise.reject(error)
-})
+})*/
+axios.interceptors.response.use(
+  function (response) {
+    // 检查响应的状态码
+    if (response.data.code !== 200) {
+      // 打印错误信息
+      console.error('响应错误:', {
+        code: response.data.code,
+        message: response.data.message || '未知错误'
+      })
+      // 返回一个拒绝的 Promise
+      return Promise.reject(new Error(response.data.message || '未知错误'))
+    }
+    // 返回成功的响应数据
+    return response.data
+  },
+  function (error) {
+    // 打印请求错误信息
+    console.error('请求错误:', error.message || '网络错误')
+    return Promise.reject(new Error('请求出错'))
+  }
+)
 
 export default {
   /**
