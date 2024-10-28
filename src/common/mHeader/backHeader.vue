@@ -63,7 +63,6 @@ export default{
     ]),
 
     signOut () {
-      debugger
       this.$confirm('是否退出', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
