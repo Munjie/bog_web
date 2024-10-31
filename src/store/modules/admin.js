@@ -613,6 +613,15 @@ const actions = {
       .catch((error) => {
         return Promise.reject(error)
       })
+  },
+  pageTask (store, params) {
+    return api.pageTask(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
   }
 }
 

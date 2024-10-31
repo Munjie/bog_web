@@ -468,6 +468,11 @@ export default {
     return axios.get('score-manage/delete', {
       params: params
     })
+  },
+  pageTask (params) {
+    return axios.get('task/page-task', {
+      params: params
+    })
   }
 
 }

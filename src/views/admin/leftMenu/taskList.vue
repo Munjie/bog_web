@@ -1,178 +1,266 @@
 <template>
-  <div id="article-manage">
-    <div class="article-table-wrap">
-      <el-table
-        :data="taskList"
-        border
-        stripe
-        size="mini"
-        style="width: 100%">
-        <el-table-column
-          prop="taskId"
-          label="任务ID"
-          show-overflow-tooltip
-          width="300">
-        </el-table-column>
-        <el-table-column
-          prop="taskName"
-          label="任务名称"
-          show-overflow-tooltip
-          width="300">
-        </el-table-column>
-        <el-table-column
-          prop="createDate"
-          label="创建时间"
-          width="300">
-        </el-table-column>
-        <el-table-column
-          label="操作"
-          fixed="right"
-          width="300">
-          <template slot-scope="scope">
-            <el-button type="info" round @click="checkAll(scope.row.taskId)">查看</el-button>
-            <el-button type="success" round @click="downloadExcel(scope.row.taskId)">下载</el-button>
-            <el-button type="danger" round @click="deleteAll(scope.row.taskId)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <!-- 分页 -->
-      <div
-        class="pagination"
-        v-show="taskList.length > 0">
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :page-size="pageSize"
-          @current-change="pageChange"
-          :current-page="currentPage"
-          :total="total">
-        </el-pagination>
-      </div>
-      <!-- 分页 结束 -->
+  <div>
+    <el-form v-model="queryParams" ref="queryForm" size="small" :inline="true" @submit.native.prevent>
+      <el-form-item label="任务名称" prop="name">
+        <el-input
+          v-model.trim="queryParams.taskName"
+          placeholder="请输入任务名称"
+          clearable
+          style="width:240px"
+          @keyup.enter.native="handleQuery"
+          clearable @clear="handleQuery(queryParams)"
+        ></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+      </el-form-item>
+    </el-form>
+    <el-table
+      :data="tableData"
+      style="width: 100%">
+      <el-table-column
+        prop="taskName"
+        label="任务名称"
+        width="300">
+      </el-table-column>
+      <el-table-column prop="status" label="状态"  width="300">
+        <template slot-scope="scope">
+          {{getLabel(getStatus,scope.row.status,'dictValue','dictLabel') }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="createTime"
+        label="创建时间">
+      </el-table-column>
+      <el-table-column
+        label="操作"
+        fixed="right"
+        width="300">
+        <template slot-scope="scope">
+          <el-button type="info" round @click="checkAll(scope.row.taskId)">查看</el-button>
+          <el-button type="success" round @click="downloadExcel(scope.row.taskId)">下载</el-button>
+          <el-button type="danger" round @click="deleteAll(scope.row.taskId)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div style="padding: 10px 0">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="pageNum"
+        :page-sizes="[5, 10, 15]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
     </div>
   </div>
 </template>
 
 <script>
-import {
-  mapActions,
-  mapGetters
-} from 'vuex'
-
-import moment from 'moment'
-import { scroll } from 'MIXINS/scroll'
+import {mapActions} from "vuex";
 import axios from "axios";
+import downLoadFile from "../../../util/fileutil";
+const API_ROOT = 'http://www.munjie.com/blog'
+const API_ROOT_DEV = 'http://localhost:8090/blog'
 
+/* eslint-enable */
+let url = (process.env.NODE_ENV === 'production' ? API_ROOT : API_ROOT_DEV)
 export default {
-  name: 'article-manage',
-  components: {
-  },
-  mixins: [scroll],
-  data () {
+  data() {
     return {
-      taskList: [],
-      page: 0,
-      pageSize: 15,
-      currentPage: 0,
+      tableData: [],
       total: 0,
-      data: null,
-      taskId: ''
+      pageNum: 1,
+      pageSize: 5,
+      taskName: "",
+      dialogFormVisible: false,
+      multipleSelection: [],
+      //form表单查询的数据
+      headerBg: "headerBg",
+      queryParams: {
+        taskName: '',
+      },
+      listData: [],
+      fileList: [],
+      getStatus: [
+        {dictValue: 1,dictLabel:'运行中'},
+        {dictValue: 2,dictLabel:'运行成功'},
+        {dictValue: 3,dictLabel:'运行失败'}
+      ],
     }
   },
   created() {
-    this.page = 0
-    this.getList()
+    this.handleQuery();
   },
   methods: {
     ...mapActions([
-      'listTask',
-      'deleteTask'
+      'pageTask'
     ]),
-    write(){
-      this.$router.push({name: 'editArticle'})
+//搜索按钮
+    handleQuery() {
+      this.pageTask({
+        pageNum: this.pageNum,
+        pageSize: this.pageSize,
+        taskName: this.queryParams.taskName,
+      }).then(res => {
+        debugger
+        console.log("task数据：" + res)
+        this.tableData = res.records
+        console.log("dadadasdtttttttttt" + this.tableData)
+        this.total = res.total
+      })
+        .catch(() => {
+          this.addressList = []
+        })
     },
-    downloadExcel(taskId) {
-      let x = new XMLHttpRequest();
-      let url;
-      //http://www.munjie.com/admin/leftMenu/taskList
-      if (process.env.NODE_ENV === 'production') {
-        url = 'http://www.munjie.com/blog/task/downloadExcel?taskId=' + taskId;
+    // 删除
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize
+      this.handleQuery()
+    },
+    handleCurrentChange(pageNum) {
+      this.pageNum = pageNum
+      this.handleQuery()
+    },
+    //重置按钮
+    resetQuery() {
+      //清空搜索栏
+      this.queryParams = {
+        taskName: '',
+      }
+      this.handleQuery()
+    },
+    getLabel(list, id, value, label) {
+      if (id != '' && Array.isArray(list) && list.length != 0){
+        return !list.find(item => item[value] == id) ? id : list.find(item => item[value] == id)[label]
       } else {
-        url = 'http://localhost:8088/blog/task/downloadExcel?taskId=' + taskId;
+        return id
       }
-      x.open("GET", url, true);
-      x.responseType = 'blob';
-      x.onload=function(e) {
-        var url = window.URL.createObjectURL(x.response)
-        var a = document.createElement('a');
-        a.href = url,
-        a.download = taskId;
-        a.click()
-      }
-      x.send();
-    },
-    checkAll(taskId) {
-      console.log(taskId)
-      this.$router.push({
-        name: 'addressList',
-        query: {
-          taskId: taskId
-        }
-      })
-    },
-    deleteAll(taskId) {
-      this.showDialog('确定删除?', ()=> {
-        this.deleteTask(taskId)
-          .then((data) => {
-            this.$toast('已删除')
-            this.page = 0
-            this.getList()
-          })
-          .catch((err)=> {
-            this.$toast(err.msg, 'error')
-          })
-      })
-    },
-    pageChange(currentPage) {
-      this.scrollToTarget(0, false)
-      this.page = currentPage
-      this.currentPage = currentPage
-      this.getList()
-    },
-    getList() {
-      this.listTask({
-        pageNo: this.page,
-        pageSize: this.pageSize
-      })
-        .then((data) => {
-          this.total = data.total
-          this.taskList = data.rows
-        })
-        .catch(()=> {
-          this.taskList = []
-        })
-    },
-    preview (article) {
-      this.$router.push({
-        name: 'articlePreview',
-        query: {
-          id: article.id
-        }
-      })
-    },
-    showDialog(tip, next) {
-      this.$confirm(tip, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-        center: true
-      }).then(() => {
-        next()
-      }).catch(()=>{})
     },
   }
 }
 </script>
+<!--<script>-->
+<!--import {-->
+<!--  mapActions,-->
+<!--  mapGetters-->
+<!--} from 'vuex'-->
+
+<!--import moment from 'moment'-->
+<!--import { scroll } from 'MIXINS/scroll'-->
+<!--import axios from "axios";-->
+
+<!--export default {-->
+<!--  name: 'article-manage',-->
+<!--  components: {-->
+<!--  },-->
+<!--  mixins: [scroll],-->
+<!--  data () {-->
+<!--    return {-->
+<!--      taskList: [],-->
+<!--      page: 0,-->
+<!--      pageSize: 15,-->
+<!--      currentPage: 0,-->
+<!--      total: 0,-->
+<!--      data: null,-->
+<!--      id: 0-->
+<!--    }-->
+<!--  },-->
+<!--  created() {-->
+<!--    this.page = 0-->
+<!--    this.getList()-->
+<!--  },-->
+<!--  methods: {-->
+<!--    ...mapActions([-->
+<!--      'listTask',-->
+<!--      'deleteTask'-->
+<!--    ]),-->
+<!--    write(){-->
+<!--      this.$router.push({name: 'editArticle'})-->
+<!--    },-->
+<!--    downloadExcel(id) {-->
+<!--      let x = new XMLHttpRequest();-->
+<!--      let url;-->
+<!--      //http://www.munjie.com/admin/leftMenu/taskList-->
+<!--      if (process.env.NODE_ENV === 'production') {-->
+<!--        url = 'http://www.munjie.com/blog/task/downloadExcel?taskId=' + id;-->
+<!--      } else {-->
+<!--        url = 'http://localhost:8088/blog/task/downloadExcel?taskId=' + id;-->
+<!--      }-->
+<!--      x.open("GET", url, true);-->
+<!--      x.responseType = 'blob';-->
+<!--      x.onload=function(e) {-->
+<!--        var url = window.URL.createObjectURL(x.response)-->
+<!--        var a = document.createElement('a');-->
+<!--        a.href = url,-->
+<!--        a.download = id;-->
+<!--        a.click()-->
+<!--      }-->
+<!--      x.send();-->
+<!--    },-->
+<!--    checkAll(id) {-->
+<!--      console.log(id)-->
+<!--      this.$router.push({-->
+<!--        name: 'addressList',-->
+<!--        query: {-->
+<!--          taskId: id-->
+<!--        }-->
+<!--      })-->
+<!--    },-->
+<!--    deleteAll(id) {-->
+<!--      this.showDialog('确定删除?', ()=> {-->
+<!--        this.deleteTask(id)-->
+<!--          .then((data) => {-->
+<!--            this.$toast('已删除')-->
+<!--            this.page = 0-->
+<!--            this.getList()-->
+<!--          })-->
+<!--          .catch((err)=> {-->
+<!--            this.$toast(err.msg, 'error')-->
+<!--          })-->
+<!--      })-->
+<!--    },-->
+<!--    pageChange(currentPage) {-->
+<!--      this.scrollToTarget(0, false)-->
+<!--      this.page = currentPage-->
+<!--      this.currentPage = currentPage-->
+<!--      this.getList()-->
+<!--    },-->
+<!--    getList() {-->
+<!--      this.listTask({-->
+<!--        pageNo: this.page,-->
+<!--        pageSize: this.pageSize-->
+<!--      })-->
+<!--        .then((data) => {-->
+<!--          this.total = data.total-->
+<!--          this.taskList = data.rows-->
+<!--        })-->
+<!--        .catch(()=> {-->
+<!--          this.taskList = []-->
+<!--        })-->
+<!--    },-->
+<!--    preview (article) {-->
+<!--      this.$router.push({-->
+<!--        name: 'articlePreview',-->
+<!--        query: {-->
+<!--          id: article.id-->
+<!--        }-->
+<!--      })-->
+<!--    },-->
+<!--    showDialog(tip, next) {-->
+<!--      this.$confirm(tip, '提示', {-->
+<!--        confirmButtonText: '确定',-->
+<!--        cancelButtonText: '取消',-->
+<!--        type: 'warning',-->
+<!--        center: true-->
+<!--      }).then(() => {-->
+<!--        next()-->
+<!--      }).catch(()=>{})-->
+<!--    },-->
+<!--  }-->
+<!--}-->
+<!--</script>-->
 
 <style lang="stylus" scoped>
 @import '~STYLUS/color.styl'
