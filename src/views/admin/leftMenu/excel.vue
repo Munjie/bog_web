@@ -24,6 +24,13 @@
                 </el-form-item>
               </el-col>
             </el-row>
+            <el-row>
+              <el-col :span="24">
+                <el-form-item prop="taskName" label="收件人邮箱">
+                  <el-input v-model="info.email" :maxlength="100" size="small"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
           </div>
           <div class="form-upload" v-if="active === 1" style="margin: 50px">
             <el-upload
@@ -39,7 +46,7 @@
               :before-upload="beforeUpload">
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-              <div class="el-upload__tip" slot="tip">只能上传Excle文件</div>
+              <div class="el-upload__tip" slot="tip">第一行为表头内容为:始发城市|到货邮编|到货省份|到货城市|到货区县,第二行为内容开始</div>
             </el-upload>
             <div class="upload-result" v-show="resultFlag">
               <div class="result-success">
@@ -61,7 +68,7 @@
       <div>
         <p>成功导入了<strong style="font-size: 20px;">{{uploadedNum}}</strong>条数据。</p>
         <p v-if="unUpload">
-          <strong>部分人员的员编在系统中不存在：</strong>
+          <strong>数据不存在：</strong>
           <span style="display: inline-block; word-break: break-all;">{{unUpload}}</span>
         </p>
       </div>
@@ -86,8 +93,7 @@ export default {
       taskId:'',
       info: {
         taskName: '',
-        taskDescription: '',
-        originAdd:''
+        email: '',
       },
       rules: {
         taskName: [
@@ -122,8 +128,7 @@ export default {
         if (res.code === 200) {
           loading.close();
           this.resultFlag = true;
-          this.uploadedNum = res.data.count;
-          this.taskId = res.data.taskId;
+          this.uploadedNum = res.data;
           this.$message.success("导入成功")
         } else {
           loading.close();

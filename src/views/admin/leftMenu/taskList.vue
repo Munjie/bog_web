@@ -23,6 +23,11 @@
         label="任务名称"
         width="300">
       </el-table-column>
+      <el-table-column
+        prop="email"
+        label="收件人邮箱"
+        width="300">
+      </el-table-column>
       <el-table-column prop="status" label="状态"  width="300">
         <template slot-scope="scope">
           {{getLabel(getStatus,scope.row.status,'dictValue','dictLabel') }}
@@ -84,7 +89,7 @@ export default {
       listData: [],
       fileList: [],
       getStatus: [
-        {dictValue: 1,dictLabel:'运行中'},
+        {dictValue: 1,dictLabel:'处理中'},
         {dictValue: 2,dictLabel:'运行成功'},
         {dictValue: 3,dictLabel:'运行失败'}
       ],
