@@ -42,9 +42,9 @@
         fixed="right"
         width="300">
         <template slot-scope="scope">
-          <el-button type="info" round @click="checkAll(scope.row.taskId)">查看</el-button>
-          <el-button type="success" round @click="downloadExcel(scope.row.taskId)">下载</el-button>
-          <el-button type="danger" round @click="deleteAll(scope.row.taskId)">删除</el-button>
+          <el-button type="info" round @click="checkAll(scope.row.id)">查看</el-button>
+          <el-button type="success" round @click="downloadExcel(scope.row.id)">下载</el-button>
+          <el-button type="danger" round @click="deleteAll(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -100,7 +100,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'pageTask'
+      'pageTask',
+      'deleteTask'
     ]),
 //搜索按钮
     handleQuery() {
@@ -142,6 +143,29 @@ export default {
       } else {
         return id
       }
+    },
+    deleteAll(id) {
+      this.showDialog('确定删除?', ()=> {
+        this.deleteTask(id)
+          .then((data) => {
+            this.$toast('已删除')
+            this.page = 0
+            this.getList()
+          })
+          .catch((err)=> {
+            this.$toast(err.msg, 'error')
+          })
+      })
+    },
+    showDialog(tip, next) {
+      this.$confirm(tip, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      }).then(() => {
+        next()
+      }).catch(()=>{})
     },
   }
 }

@@ -26,7 +26,7 @@
             </el-row>
             <el-row>
               <el-col :span="24">
-                <el-form-item prop="taskName" label="收件人邮箱">
+                <el-form-item prop="email" label="收件人邮箱">
                   <el-input v-model="info.email" :maxlength="100" size="small"></el-input>
                 </el-form-item>
               </el-col>
