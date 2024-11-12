@@ -43,7 +43,7 @@
         width="300">
         <template slot-scope="scope">
           <el-button type="info" round @click="checkAll(scope.row.id)">查看</el-button>
-          <el-button type="success" round @click="downloadExcel(scope.row.id)">下载</el-button>
+          <el-button type="success" round @click="downLoad(scope.row.id)">下载</el-button>
           <el-button type="danger" round @click="deleteAll(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
@@ -144,6 +144,12 @@ export default {
         return id
       }
     },
+    downLoad(id) {
+      //导出excel文件
+      console.log("down log:  "+ url)
+      window.open(url + '/task/export-excel/'+id);
+      this.$message.success("导出成功");
+    },
     downloadExcel(id) {
       let x = new XMLHttpRequest();
       let url;
@@ -153,7 +159,7 @@ export default {
       } else {
         url = 'http://localhost:8090/blog/task/downloadExcel?taskId=' + id;
       }
-      x.open("GET", url, true);
+      x.open("POST", url, true);
       x.responseType = 'blob';
       x.onload=function(e) {
         var url = window.URL.createObjectURL(x.response)
