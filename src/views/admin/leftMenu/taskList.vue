@@ -144,13 +144,32 @@ export default {
         return id
       }
     },
+    downloadExcel(id) {
+      let x = new XMLHttpRequest();
+      let url;
+      //http://www.munjie.com/admin/leftMenu/taskList
+      if (process.env.NODE_ENV === 'production') {
+        url = 'http://www.munjie.com/blog/task/downloadExcel?taskId=' + id;
+      } else {
+        url = 'http://localhost:8090/blog/task/downloadExcel?taskId=' + id;
+      }
+      x.open("GET", url, true);
+      x.responseType = 'blob';
+      x.onload=function(e) {
+        var url = window.URL.createObjectURL(x.response)
+        var a = document.createElement('a');
+        a.href = url,
+          a.download = id;
+        a.click()
+      }
+      x.send();
+    },
     deleteAll(id) {
       this.showDialog('确定删除?', ()=> {
         this.deleteTask(id)
           .then((data) => {
             this.$toast('已删除')
-            this.page = 0
-            this.getList()
+            this.handleQuery()
           })
           .catch((err)=> {
             this.$toast(err.msg, 'error')
