@@ -25,7 +25,8 @@ axios.defaults.headers.Accept = 'application/json'
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
-  if (config.url.indexOf('admin/') === 0) {
+  debugger
+  if (config.baseURL.indexOf('admin/') === 0) {
     if (getAccessToken()) {
       config.headers['accessToken'] = getAccessToken()
     }
@@ -342,7 +343,7 @@ export default {
    * 获取文章主页列表
    */
   getBlogArticleList (params) {
-    return axios.get('article/listArticles', {
+    return axios.get('article/page-home-article', {
       params: params
     })
   },

@@ -58,8 +58,8 @@
       }
     },
     created() {
-      //this.pageNo = 0
-     // this.getList()
+      this.pageNo = 0
+     this.getList()
     },
     methods: {
       ...mapActions([
@@ -72,9 +72,8 @@
           pageSize: this.pageSize
         })
           .then((data) => {
-            console.log(99999999 + data)
             this.total = data.total
-            this.articleList = data.rows
+            this.articleList = data.records
             this.loading = false
           })
           .catch(()=> {

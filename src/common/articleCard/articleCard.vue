@@ -6,19 +6,19 @@
           backgroundImage: 'url(' + getCover + ')'
         }">
         <div class="article-title">
-          <span @click="showArticle">{{ article.articleTitle }}</span>
+          <span @click="showArticle">{{ article.title }}</span>
         </div>
       </div>
       <div class="article-info">
         <i class="iconfont icon-calendar"></i>
-        {{ article.articlePublishTime | dateFormat}}
+        {{ article.publishTime}}
         <!--        <i class="iconfont icon-folder"></i>
                 <span class="classify" @click="toList('category', article.category.id)">{{ article.category.name }}</span> •-->
         <i class="iconfont icon-eye"></i>
-        {{ article.articleViews }}
+        {{ article.views }}
       </div>
-      <div class="article-sub-message">{{ article.articleIntro }}</div>
-      <div class="tags" v-if="article.tags.length > 0">
+      <div class="article-sub-message">{{ article.introduction }}</div>
+<!--      <div class="tags" v-if="article.tags.length > 0">
         <div
           v-for="item in article.tags"
           :key="item"
@@ -27,7 +27,7 @@
           <i class="iconfont icon-tag"></i>
           {{ item }}
         </div>
-      </div>
+      </div>-->
       <div class="read-more" @click="showArticle">阅读全文 >></div>
     </div>
   </div>
