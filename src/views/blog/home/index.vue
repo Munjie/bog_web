@@ -22,7 +22,7 @@
     <!-- 分页 结束 -->
     <no-data
       v-if="total === 0"
-      text="没有找到文章~"/>
+      text=" "/>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div id="appindex">
-    <vue-particles
+<!--    <vue-particles
       id="particles-js"
       color="#005757"
       :particleOpacity="0.7"
@@ -18,7 +18,7 @@
       :clickEffect="true"
       clickMode="push"
     >
-    </vue-particles>
+    </vue-particles>-->
     <!-- 博客页面 -->
     <div class="content-wrap" v-if="!isAdminWrap">
       <!-- header -->

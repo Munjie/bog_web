@@ -2,7 +2,7 @@
   <div id="m-footer">
     <div class="footer-wrap">
       <p>
-         Copyright @ 2020-2024 <a href="https://beian.miit.gov.cn" target="_blank"> 沪ICP备19003704号</a>
+         Copyright @ 2020-2025 <a href="https://beian.miit.gov.cn" target="_blank"> 沪ICP备19003704号</a>
       </p>
     </div>
   </div>
