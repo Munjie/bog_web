@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Qs from 'qs'
 import store from '../store/index'
-
+import { Message } from 'element-ui'
 import {
   getAccessToken,
   removeAccessToken,
@@ -12,6 +12,7 @@ import {
   IS_LOGIN,
   SHOW_TOKEN_ERROR
 } from '../store/mutation-types'
+import ElementUI from "../ElementUI";
 
 /* eslint-disable */
 const API_ROOT = 'http://www.munjie.com/blog/'
@@ -62,21 +63,18 @@ axios.interceptors.response.use(
     // 检查响应的状态码
     if (response.data.code !== 200) {
       // 打印错误信息
-      console.error('响应错误:', {
-        code: response.data.code,
-        message: response.data.message || '未知错误'
-      })
+      Message.error(response.data.message)
       // 返回一个拒绝的 Promise
-      return Promise.reject(new Error(response.data.message || '未知错误'))
+      return Promise.reject(response.data.message)
     }
     // 返回成功的响应数据
     return response.data
-  },
-  function (error) {
-    // 打印请求错误信息
-    console.error('请求错误:', error.message || '网络错误')
-    return Promise.reject(new Error('请求出错'))
   }
+  // function (error) {
+  //   // 打印请求错误信息
+  //   console.error('请求错误:', error.message || '网络错误')
+  //   return Promise.reject(new Error('请求出错'))
+  // }
 )
 
 export default {

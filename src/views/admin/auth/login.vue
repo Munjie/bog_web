@@ -88,7 +88,7 @@ export default {
               window.location.reload()
             })
             .catch((err) => {
-              this.$toast(err.msg, 'error')
+              // this.$toast(err, 'error')
             })
         } else {
           return false
