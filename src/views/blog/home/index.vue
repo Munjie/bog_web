@@ -58,8 +58,8 @@
       }
     },
     created() {
-      this.pageNo = 0
-     this.getList()
+      // this.pageNo = 0
+     // this.getList()
     },
     methods: {
       ...mapActions([
