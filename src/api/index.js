@@ -1,7 +1,5 @@
 import axios from 'axios'
 import Qs from 'qs'
-import store from '../store/index'
-import { Message } from 'element-ui'
 import {
   getAccessToken,
   removeAccessToken,
@@ -67,7 +65,6 @@ axios.interceptors.response.use(
     // 检查响应的状态码
     if (response.data.code !== 200) {
       // 打印错误信息
-      Message.error(response.data.message)
       // 返回一个拒绝的 Promise
       return Promise.reject(response.data.message)
     }

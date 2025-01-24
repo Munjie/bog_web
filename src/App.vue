@@ -164,6 +164,47 @@ export default {
     ])
   },
   created() {
+    const head = document.getElementsByTagName('head')[0];
+    // 定义DOM树变化后的回调
+    const callBack = (mutationsList, observer) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList' && mutation.addedNodes && mutation.addedNodes[0] && mutation.addedNodes[0].tagName === "SCRIPT") {
+          const url = mutation.addedNodes[0].src;
+          console.log(url);
+          if (url) {
+            let xhr = new XMLHttpRequest();
+            xhr.open('get', url);
+            xhr.onload = () => {
+              const text = xhr.responseText;
+              // console.log(text);
+              if (text.indexOf('<') === 0) {
+                this.$confirm("检测到新版本已发布，刷新后加载最新内容!",'提示', {
+                  confirmButtonText: '刷新',
+                  type: 'error',
+                  closeOnClickModal: false,
+                  closeOnPressEscape:false,
+                  closeOnHashChange:false,
+                  showCancelButton: false,
+                  showClose: false
+                }).then(res => {
+                  window.location.reload(true);
+                })
+                return false;
+              }
+            }
+            xhr.send();
+          }
+        }
+      }
+    }
+    // 配置项
+    const config = {attributes: false, childList: true, subtree: false};
+    // observer观察器
+    const observer = new MutationObserver(callBack);
+    // 开始观察
+    observer.observe(head, config);
+    // 停止观察
+    // observer.disconnect();
     if (!this.isAdminWrap) {
    //   this.getBlogInfo().catch(()=> {})
     }
