@@ -35,6 +35,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  debugger
   if (to.fullPath.indexOf('/admin') !== -1) {
     store.commit('IS_ADMIN_WRAP', true)
   } else {

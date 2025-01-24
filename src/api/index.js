@@ -25,7 +25,10 @@ axios.defaults.headers.Accept = 'application/json'
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
-  debugger
+  // debugger
+  // if (config.baseURL.endsWith('blog/')) {
+  //   return
+  // }
   if (config.baseURL.indexOf('admin/') === 0) {
     if (getAccessToken()) {
       config.headers['accessToken'] = getAccessToken()

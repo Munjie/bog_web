@@ -1,6 +1,6 @@
 <template>
   <div id="article" v-loading="loading">
-    <div class="article-warp" v-if="article.articleId">
+    <div class="article-warp" v-if="article.id">
       <div class="article-message">
         <p class="article-title">
           {{ article.articleTitle }}

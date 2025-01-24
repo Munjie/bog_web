@@ -1,10 +1,19 @@
 <template>
-  <div id="article-card">
-    <div class="article-card-wrap">
-      <div class="article-cover"
-           :style="{
-          backgroundImage: 'url(' + getCover + ')'
-        }">
+  <div id="blog-card" class="blog-card">
+      <img :src="article.image" alt="Blog Image">
+      <div class="blog-content">
+<!--        <span class="blog-tag">{{ article.tag }}</span>-->
+        <h2 class="blog-title">{{ article.title }}</h2>
+        <p class="blog-description">{{ article.introduction }}</p>
+        <div class="blog-footer">
+          <span>{{ article.publishTime }}</span>
+          <span>{{ article.views }}人阅读</span>
+          <span>3评论</span>
+        </div>
+      </div>
+
+<!--    <div class="article-card-wrap">
+      <div class="article-cover" :style="{ backgroundImage: 'url(' + getCover + ')'}">
         <div class="article-title">
           <span @click="showArticle">{{ article.title }}</span>
         </div>
@@ -12,13 +21,13 @@
       <div class="article-info">
         <i class="iconfont icon-calendar"></i>
         {{ article.publishTime}}
-        <!--        <i class="iconfont icon-folder"></i>
-                <span class="classify" @click="toList('category', article.category.id)">{{ article.category.name }}</span> •-->
+        &lt;!&ndash;        <i class="iconfont icon-folder"></i>
+                <span class="classify" @click="toList('category', article.category.id)">{{ article.category.name }}</span> •&ndash;&gt;
         <i class="iconfont icon-eye"></i>
         {{ article.views }}
       </div>
       <div class="article-sub-message">{{ article.introduction }}</div>
-<!--      <div class="tags" v-if="article.tags.length > 0">
+&lt;!&ndash;      <div class="tags" v-if="article.tags.length > 0">
         <div
           v-for="item in article.tags"
           :key="item"
@@ -27,9 +36,9 @@
           <i class="iconfont icon-tag"></i>
           {{ item }}
         </div>
-      </div>-->
+      </div>&ndash;&gt;
       <div class="read-more" @click="showArticle">阅读全文 >></div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -249,5 +258,71 @@
     margin-top: 0px;
     opacity: 1;
   }
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #111; /* 背景色 */
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.blog-container {
+  width: 90%;
+  max-width: 800px;
+}
+.blog-card {
+  display: flex;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+.blog-card img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+}
+.blog-content {
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.blog-tag {
+  background: #4caf50;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+.blog-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 8px;
+}
+.blog-description {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 8px;
+  flex: 1;
+}
+.blog-footer {
+  font-size: 12px;
+  color: #aaa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.blog-footer span {
+  display: inline-block;
+  margin-right: 8px;
 }
 </style>
