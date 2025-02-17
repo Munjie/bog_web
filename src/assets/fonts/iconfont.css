@@ -1,10 +1,8 @@
 @font-face {
-  font-family: 'iconfont';  /* project id 738189 */
-  src: url('//at.alicdn.com/t/font_738189_c8al36tbbn8.eot');
-  src: url('//at.alicdn.com/t/font_738189_c8al36tbbn8.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_738189_c8al36tbbn8.woff') format('woff'),
-  url('//at.alicdn.com/t/font_738189_c8al36tbbn8.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_738189_c8al36tbbn8.svg#iconfont') format('svg');
+  font-family: 'iconfont';  /* Project id 2999352 */
+  src: url('//at.alicdn.com/t/c/font_2999352_l0axbexx1w.woff2?t=1739774346435') format('woff2'),
+  url('//at.alicdn.com/t/c/font_2999352_l0axbexx1w.woff?t=1739774346435') format('woff'),
+  url('//at.alicdn.com/t/c/font_2999352_l0axbexx1w.ttf?t=1739774346435') format('truetype');
 }
 
 .iconfont {
@@ -15,48 +13,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-deleted:before { content: "\e615"; }
+.my_icon-task:before {
+  content: "\e610";
+}
 
-.icon-signout:before { content: "\e66a"; }
+.my_icon-chengji:before {
+  content: "\e633";
+}
 
-.icon-github:before { content: "\e709"; }
+.my_icon-liebiao:before {
+  content: "\e600";
+}
 
-.icon-folder:before { content: "\e65f"; }
+.my_icon-setting:before {
+  content: "\e78e";
+}
 
-.icon-config:before { content: "\e68d"; }
+.my_icon-edit-square:before {
+  content: "\e791";
+}
 
-.icon-classify:before { content: "\e7f8"; }
-
-.icon-calendar:before { content: "\e620"; }
-
-.icon-eye:before { content: "\e63b"; }
-
-.icon-base-config:before { content: "\e638"; }
-
-.icon-other:before { content: "\e618"; }
-
-.icon-tag:before { content: "\e629"; }
-
-.icon-article-edit:before { content: "\e652"; }
-
-.icon-article:before { content: "\e681"; }
-
-.icon-home:before { content: "\e653"; }
-
-.icon-about:before { content: "\e62a"; }
-
-.icon-friends-link:before { content: "\e636"; }
-
-.icon-archives:before { content: "\e619"; }
-
-.icon-article-manage:before { content: "\e661"; }
-
-.icon-drafts:before { content: "\e64f"; }
-
-.icon-comments:before { content: "\e63a"; }
-
-.icon-resume:before { content: "\e612"; }
-
-.icon-search:before { content: "\e654"; }
-
-.icon-more:before { content: "\e60a"; }

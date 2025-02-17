@@ -216,7 +216,6 @@ export default {
       }
       this.getMenus(userId).then(res=>{
         this.menuList = res;
-        console.log('6565656'+this.menuList)
       })
     },
   }

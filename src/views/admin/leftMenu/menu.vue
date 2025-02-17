@@ -3,7 +3,7 @@
     <template v-for="list in this.menuList">
       <el-submenu v-if="list.children && list.children.length>0" :key="list.id" :index="list.url">
         <template slot="title"  style="padding-left:10px" class="submenu-title">
-          <i :class="list.imgUrl"></i>
+          <i :class="list.icon"></i>
           <span slot="title">{{ list.name}}</span>
         </template>
         <el-menu-item-group>
@@ -13,7 +13,7 @@
       </el-submenu>
       <el-menu-item v-else :index="list.url" :key="list.id">
         <!--        <template slot="title">-->
-        <i :class="list.imgUrl"></i>
+        <i :class="list.icon"></i>
         <span slot="title">{{list.name}}</span>
         <!--        </template>-->
       </el-menu-item>
