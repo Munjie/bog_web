@@ -27,7 +27,7 @@ Vue.use(Highlight)
 Vue.use(photoPreview)
 Vue.use(VueParticles)
 // Vue.use(live2d)
-Vue.use(axios)
+// Vue.use(axios)
 
 Vue.toast = Vue.prototype.$toast = (msg, type = 'success') => {
   Vue.prototype.$message({
