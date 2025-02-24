@@ -220,7 +220,7 @@ export default {
    * 保存文章
    */
   saveArticle (params) {
-    return axios.post('back/save', Qs.stringify(params))
+    return axios.post('article/save', Qs.stringify(params))
   },
   /**
    * 发布文章
@@ -243,8 +243,8 @@ export default {
   /**
    * 获取文章信息
    */
-  getArticle (articleId) {
-    return axios.get('article/getArticleDetailById/' + articleId)
+  getArticle (id) {
+    return axios.get('article/get-article-by-id/' + id)
   },
   /**
    * 获取文章列表

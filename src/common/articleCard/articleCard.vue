@@ -9,6 +9,7 @@
           <span>{{ article.publishTime }}</span>
           <span>{{ article.views }}人阅读</span>
           <span>3评论</span>
+          <div class="read-more" @click="showArticle">阅读全文 >></div>
         </div>
       </div>
 
@@ -64,18 +65,18 @@
         this.$router.push({
           name: 'article',
           query: {
-            id: this.article.articleId
+            id: this.article.id
           }
         })
       },
-      toList (tagName) {
+      /*toList (tagName) {
         this.$router.push({
           name: 'articleList',
           query: {
             id: tagName
           }
         })
-      }
+      }*/
     }
   }
 </script>

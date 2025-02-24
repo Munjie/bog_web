@@ -3,15 +3,13 @@
     <div class="header-wrap">
       编辑文章
       <div class="action-btn-wrap">
-        <span @click="publish" v-if="canPublish">发布</span>
-        <span @click="modify" v-if="canModify">提交</span>
-        <span @click="save" v-if="canSave">保存</span>
+        <span @click="save">保存</span>
       </div>
     </div>
     <div class="edit-wrap">
       <mavon-editor
         class="editor"
-        v-model="article.articleContent"
+        v-model="article.content"
         ref=md
         @imgAdd="$imgAdd"
         :boxShadow="true"
@@ -81,7 +79,7 @@
           <el-input
             class="input-title"
             size="mini"
-            v-model="article.articleTitle"
+            v-model="article.title"
             placeholder="请输入文章标题">
           </el-input>
           <el-input
@@ -91,13 +89,9 @@
             :rows="6"
             :maxlength="150"
             resize="none"
-            v-model="article.articleIntro"
+            v-model="article.introduction"
             placeholder="请输入文章简介">
           </el-input>
-          <div class="label-wrap">
-            阅读加密：
-            <el-checkbox size="mini" v-model="isEncrypt"></el-checkbox>
-          </div>
           <!--          <div class="label-wrap">-->
           <!--            分类：-->
           <!--            <el-select-->
@@ -160,15 +154,13 @@
     },
     data () {
       return {
-        canPublish: false,
-        canModify: false,
-        canSave: false,
         isEncrypt: false,
         article: {
-          articleContent: '',
-          articleTitle: '',
-          articleImage: '',
-          articleIntro: ''
+          id : '',
+          content: '',
+          title: '',
+          image: '',
+          introduction: ''
         },
         category: '',
         tags: [],
@@ -288,46 +280,33 @@
       },
       initData() {
         let id = this.$route.query.id
-        this.canPublish = false,
-          this.canModify = false,
-          this.canSave = false,
-          this.isEncrypt = false,
           this.article = {
-            articleContent: '',
-            articleTitle: '',
-            articleImage: '',
-            articleIntro: ''
+            id : '',
+            content: '',
+            title: '',
+            image: '',
+            introduction: ''
           },
-          this.category = '',
+          this.classification = '',
           this.tags = []
         if (id) {
           this.getArticle(id)
             .then((data) => {
-              if (data.article.status === '0') {
-                this.canModify = true
-              } else {
-                this.canPublish = true
-                this.canSave = true
-              }
-              this.article = data.article
-              this.isEncrypt = this.article.isEncrypt === '1'
-              this.init(data.category, data.tags)
+              this.article = data
+              // this.init(data.classification, data.tags)
             })
             .catch(()=> {})
-        } else {
-          this.canPublish = true
-          this.canSave = true
         }
         // this.getCategoryList({all: true})
         //   .then((data) => {
         //     this.categoryList = data.list
         //   })
         //   .catch(()=> {})
-        this.getEditTagList()
+        /*this.getEditTagList()
           .then((data) => {
             this.tagList = data
           })
-          .catch(()=> {})
+          .catch(()=> {})*/
       },
       init(oldTategory, oldTags) {
         this.category = oldTategory.name
@@ -378,43 +357,35 @@
         return markdown(str)
       },
       getParams() {
-        let html = this.markdownHtml(this.article.articleContent)
+        let html = this.markdownHtml(this.article.content)
         let params = {
-          articleTitle: this.article.articleTitle,
-          articleContent: this.article.articleContent,
-          articleIntro: this.article.articleIntro,
-          articleImage: this.path,
-          articleHtml: html
+          id: this.$route.query.id,
+          title: this.article.title,
+          content: html,
+          introduction: this.article.introduction,
+          image: this.path
         }
        // params.category = this.getCategory()
-        params.tags = this.getTags()
+       /* params.tags = this.getTags()
         if (this.article.id) {
           params.id = this.article.id
-        }
+        }*/
         return params
       },
       publish() {
         let params = this.getParams()
-        if (!params.articleTitle) {
+        if (!params.title) {
           this.$toast('文章标题不能为空', 'error')
           return
         }
-        if (!params.articleIntro) {
+        if (!params.introduction) {
           this.$toast('文章简介不能为空', 'error')
           return
         }
-        if (!params.articleContent) {
+        if (!params.content) {
           this.$toast('文章内容不能为空', 'error')
           return
         }
-        this.publishArticle(params)
-          .then((data) => {
-            this.$toast('已发布')
-            this.updateRoute('articlePreview', data)
-          })
-          .catch((err) => {
-            this.$toast(err.msg, 'error')
-          })
       },
       save() {
         let params = this.getParams()
@@ -441,7 +412,7 @@
           this.$toast('文章简介不能为空', 'error')
           return
         }
-        if (!params.articleContent) {
+        if (!params.content) {
           this.$toast('文章内容不能为空', 'error')
           return
         }

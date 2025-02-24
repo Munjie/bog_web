@@ -3,20 +3,20 @@
     <div class="article-warp" v-if="article.id">
       <div class="article-message">
         <p class="article-title">
-          {{ article.articleTitle }}
+          {{ article.title }}
         </p>
         <div class="article-info">
           <i class="iconfont icon-calendar"></i>
-          {{ article.articlePublishTime | dateFormat}}
+          {{ article.createTime | dateFormat}}
           <!--          <i class="iconfont icon-folder"></i>-->
           <!--          <span class="classify" @click="toList('category', category.id)">{{ category.name }}</span> •-->
           <i class="iconfont icon-eye"></i>
-          {{ article.articleViews }}
+          {{ article.views }}
         </div>
-        <div class="article-sub-message">{{ article.subMessage }}</div>
+        <div class="article-sub-message">{{ article.introduction }}</div>
       </div>
-      <md-preview :contents="article.articleHtml" />
-      <div class="tags">
+      <md-preview :contents="article.content" />
+<!--      <div class="tags">
         <div
           v-for="item in tags"
           :key="item"
@@ -25,7 +25,7 @@
           <i class="iconfont icon-tag"></i>
           {{item}}
         </div>
-      </div>
+      </div>-->
       <!--      <div class="pre-next-wrap">-->
       <!--        <span class="pre-wrap" v-if="pn.pre" @click="$router.push({name: 'article', query:{id: pn.pre.id}})">-->
       <!--          <i class="el-icon-arrow-left"></i>-->
@@ -36,10 +36,10 @@
       <!--          <i class="el-icon-arrow-right"></i>-->
       <!--        </span>-->
       <!--      </div>-->
-      <comments :id="article.articleId" />
+<!--      <comments :id="article.articleId" />-->
     </div>
     <no-data
-      v-if="!article.articleId"
+      v-if="!article.id"
       text="没有找到该文章~"/>
   </div>
 </template>
@@ -81,7 +81,8 @@
     },
     methods: {
       ...mapActions([
-        'getBlogArticle'
+        'getBlogArticle',
+        'getArticle'
       ]),
       initData() {
         this.article = {}
@@ -89,16 +90,16 @@
         this.tags = []
         this.qrcode = {}
         this.pn = {}
-        let articleId = this.$route.query.id
-        if (articleId) {
+        let id = this.$route.query.id
+        if (id) {
           this.loading = true
-          this.getBlogArticle(articleId)
+          this.getArticle(id)
             .then((data) => {
-              this.article = data.article
-              this.category = data.category
-              this.tags = data.article.tags
-              this.qrcode = data.qrcode
-              this.pn = data.pn
+              this.article = data
+              // this.category = data.category
+              // this.tags = data.article.tags
+              // this.qrcode = data.qrcode
+              // this.pn = data.pn
               this.loading = false
             })
             .catch(()=> {

@@ -110,7 +110,6 @@ export default {
         pageSize: this.pageSize,
         taskName: this.queryParams.taskName,
       }).then(res => {
-        debugger
         console.log("task数据：" + res)
         this.tableData = res.records
         console.log("dadadasdtttttttttt" + this.tableData)

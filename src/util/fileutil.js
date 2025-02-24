@@ -3,7 +3,6 @@
 import axios from 'axios'
 import qs from 'qs'
 export default function downLoadFile (url, method = 'get', params = {}) {
-  debugger
   axios({
     method,
     url,

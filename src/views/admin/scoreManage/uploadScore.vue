@@ -67,7 +67,6 @@ export default {
       formData.append('info', new Blob([JSON.stringify(this.info)], {type: "application/json"}));
       this.visible = false;
       this.uploadScore(formData).then(res=>{
-        debugger
         if (res.code === 200) {
           loading.close();
           this.resultFlag = true;

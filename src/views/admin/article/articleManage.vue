@@ -8,59 +8,44 @@
         size="mini"
         style="width: 100%">
         <el-table-column
-          label="标题"
+          prop="title"
+          label="文章标题"
           show-overflow-tooltip
-          min-width="200">
-          <template slot-scope="scope">
-            <div class="article-title" @click="preview(scope.row.articleId)">{{ scope.row.articleTitle || '无标题' }}</div>
-          </template>
+          width="120">
         </el-table-column>
         <el-table-column
           label="封面图"
-          width="61">
+          width="100">
           <template slot-scope="scope">
             <img
-              v-if="scope.row.cover"
-              :src="scope.row.cover"
+              v-if="scope.row.image"
+              :src="scope.row.image"
               style="width: 100%;height: 20px; cursor: pointer"
               @click="previewImg">
           </template>
         </el-table-column>
         <el-table-column
-          prop="categoryName"
+          prop="classification"
           label="分类"
           show-overflow-tooltip
           width="120">
         </el-table-column>
         <el-table-column
-          prop="articleViews"
+          prop="views"
           label="阅读量"
           width="60">
         </el-table-column>
         <el-table-column
-          label="发布"
-          width="45">
+          label="是否发布"
+          width="80">
           <template slot-scope="scope">
             {{ scope.row.status === '0' ? '否' : '是' }}
           </template>
         </el-table-column>
         <el-table-column
-          prop="articleCreateTime"
-          label="创建时间"
-          width="128"
-          :formatter="formatTime">
-        </el-table-column>
-        <el-table-column
-          prop="articlePublishTime"
+          prop="publishTime"
           label="发布时间"
-          width="128"
-          :formatter="formatTime">
-        </el-table-column>
-        <el-table-column
-          prop="articleUpdateTime"
-          label="更新时间"
-          width="128"
-          :formatter="formatTime">
+          width="150">
         </el-table-column>
         <el-table-column
           label="操作"
@@ -72,14 +57,14 @@
               icon="el-icon-edit"
               type="primary"
               circle
-              @click="edit(scope.row.articleId)">
+              @click="edit(scope.row.id)">
             </el-button>
             <el-button
               size="mini"
               type="danger"
               icon="el-icon-delete"
               circle
-              @click="under(scope.row.articleId)">
+              @click="under(scope.row.id)">
             </el-button>
           </template>
         </el-table-column>
@@ -131,7 +116,7 @@
     },
     methods: {
       ...mapActions([
-        'getBackList',
+        'getBlogArticleList',
         'deleteArticle'
       ]),
       write(){
@@ -173,13 +158,13 @@
         this.getList()
       },
       getList() {
-        this.getBackList({
+        this.getBlogArticleList({
           pageNo: this.page,
           pageSize: this.pageSize
         })
           .then((data) => {
             this.total = data.total
-            this.articleList = data.rows
+            this.articleList = data.records
             console.log(this.articleList)
           })
           .catch(()=> {
