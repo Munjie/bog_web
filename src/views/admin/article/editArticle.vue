@@ -63,7 +63,7 @@
               @uploadSuccess="uploadSuccess"></UP>-->
           <el-upload
             class="upload-demo"
-            action="http://localhost:8088/blog/back/uploadImage"
+            action="http://localhost:8090/blog/article/upload-image"
             accept="image/*"
             :on-exceed="onExceed"
             :on-change="handleChange"
@@ -75,7 +75,7 @@
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
           <button @click="sc">上传</button>
-          <img :src="path" style="width: 100px"/>
+          <img :src="article.image" style="width: 100px"/>
           <el-input
             class="input-title"
             size="mini"
@@ -166,7 +166,6 @@
         tags: [],
         categoryList: [],
         tagList: [],
-        path: ''
       }
     },
     created() {
@@ -196,9 +195,8 @@
         this.$message({type: 'success', message: '上传成功', showClose: true});
       },
       uploadSuccess(e) {
-        this.path =  e.message;
-        console.log(this.path + 895656565)
-        console.log(e.message)
+        this.article.image =  e.data;
+        console.log("image->"+e.data)
       },
       beforeUnload() {
         //自动上传触发
@@ -363,7 +361,7 @@
           title: this.article.title,
           content: html,
           introduction: this.article.introduction,
-          image: this.path
+          image: this.article.image
         }
        // params.category = this.getCategory()
        /* params.tags = this.getTags()

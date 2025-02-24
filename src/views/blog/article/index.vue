@@ -13,7 +13,7 @@
           <i class="iconfont icon-eye"></i>
           {{ article.views }}
         </div>
-        <div class="article-sub-message">{{ article.introduction }}</div>
+<!--        <div class="article-sub-message">{{ article.introduction }}</div>-->
       </div>
       <md-preview :contents="article.content" />
 <!--      <div class="tags">
