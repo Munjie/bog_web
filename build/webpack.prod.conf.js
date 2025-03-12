@@ -26,12 +26,12 @@ const webpackConfig = merge(baseWebpackConfig, {
     })
   },
   externals: {
-    'vue': 'Vue',
+   /* 'vue': 'Vue',
     'vue-router': 'VueRouter',
     'element-ui': 'ELEMENT',
     'moment': 'moment',
     'highlight.js': 'hljs',
-    'marked': 'marked'
+    'marked': 'marked'*/
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {

@@ -6,15 +6,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <title>Munjie</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">-->
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
 <noscript>Hi</noscript>
 <div id="app"></div>
 <!-- built files will be auto injected -->
-<% if (htmlWebpackPlugin.options.prod) { %>
+<% if (htmlWebpackPlugin.options.dev) { %>
 <!-- 如果是开发环境就不需要引入cdn了，直接用本地的，不然没网都开发不了 -->
 
 <!-- vue -->
@@ -29,9 +30,10 @@
 <!-- monent日期库 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
 <!-- markdown解析 -->
-<script src="https://cdn.bootcss.com/marked/0.4.0/marked.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
+<!--<script src="https://cdn.bootcss.com/marked/0.4.0/marked.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/marked@0.4.0/marked.min.js"></script>
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/lib/highlight.min.js"></script>
 <script>
   // 百度统计
 /*  var _hmt = _hmt || [];
