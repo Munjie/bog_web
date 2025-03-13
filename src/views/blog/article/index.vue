@@ -5,14 +5,14 @@
         <p class="article-title">
           {{ article.title }}
         </p>
-        <div class="article-info">
+<!--        <div class="article-info">
           <i class="iconfont icon-calendar"></i>
           {{ article.createTime | dateFormat}}
-          <!--          <i class="iconfont icon-folder"></i>-->
-          <!--          <span class="classify" @click="toList('category', category.id)">{{ category.name }}</span> •-->
+          &lt;!&ndash;          <i class="iconfont icon-folder"></i>&ndash;&gt;
+          &lt;!&ndash;          <span class="classify" @click="toList('category', category.id)">{{ category.name }}</span> •&ndash;&gt;
           <i class="iconfont icon-eye"></i>
           {{ article.views }}
-        </div>
+        </div>-->
 <!--        <div class="article-sub-message">{{ article.introduction }}</div>-->
       </div>
       <md-preview :contents="article.content" />

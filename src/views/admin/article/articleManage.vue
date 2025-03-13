@@ -1,6 +1,9 @@
 <template>
   <div id="article-manage">
     <div class="article-table-wrap">
+      <div class="button-container">
+      <el-button type="primary" icon="el-icon-edit" @click="addArticle()">新增文章</el-button>
+      </div>
       <el-table
         :data="articleList"
         border
@@ -11,11 +14,11 @@
           prop="title"
           label="文章标题"
           show-overflow-tooltip
-          width="120">
+          align="center">
         </el-table-column>
         <el-table-column
           label="封面图"
-          width="100">
+          align="center">
           <template slot-scope="scope">
             <img
               v-if="scope.row.image"
@@ -28,29 +31,36 @@
           prop="classification"
           label="分类"
           show-overflow-tooltip
-          width="120">
+          align="center">
         </el-table-column>
         <el-table-column
           prop="views"
           label="阅读量"
-          width="60">
+          align="center">
         </el-table-column>
-        <el-table-column
-          label="是否发布"
-          width="80">
+        <el-table-column prop="status" label="是否发布" align="center">
           <template slot-scope="scope">
-            {{ scope.row.status === '0' ? '否' : '是' }}
+            <el-switch
+              v-model="scope.row.status"
+              class="switch"
+              active-text="已发布"
+              inactive-text="未发布"
+              :active-value="1"
+              :inactive-value="0"
+              @change="handleStatusChange(scope.row)"
+            />
           </template>
         </el-table-column>
+
         <el-table-column
           prop="publishTime"
           label="发布时间"
-          width="150">
+          align="center">
         </el-table-column>
         <el-table-column
           label="操作"
           fixed="right"
-          width="112">
+          align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -136,6 +146,17 @@
             id: articleId
           }
         })
+      },
+      addArticle() {
+        this.$router.push({
+          name: 'editArticle',
+          query: {
+            id: ""
+          }
+        })
+      },
+      handleStatusChange(row){
+
       },
       under(articleId) {
         console.log(articleId)
@@ -234,5 +255,9 @@
     margin-top: 0px;
     opacity: 1;
   }
+}
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* 让子元素靠右对齐 */
 }
 </style>
