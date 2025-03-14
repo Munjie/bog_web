@@ -223,6 +223,12 @@ export default {
     return axios.post('article/save', Qs.stringify(params))
   },
   /**
+   * 更新文章发布
+   */
+  updateArticleStatus (params) {
+    return axios.post('article/update-article-status', Qs.stringify(params))
+  },
+  /**
    * 发布文章
    */
   publishArticle (params) {
@@ -346,6 +352,15 @@ export default {
    */
   getBlogArticleList (params) {
     return axios.get('article/page-home-article', {
+      params: params
+    })
+  },
+
+  /**
+   * 获取所有文章列表
+   */
+  getAllArticleList (params) {
+    return axios.get('article/page-all-article', {
       params: params
     })
   },

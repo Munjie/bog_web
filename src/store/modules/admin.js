@@ -299,6 +299,18 @@ const actions = {
       })
   },
   /**
+   * 更新文章发布
+   */
+  updateArticleStatus (store, params) {
+    return api.updateArticleStatus(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  /**
    * 发布文章
    */
   publishArticle (store, params) {

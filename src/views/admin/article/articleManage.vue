@@ -126,8 +126,9 @@
     },
     methods: {
       ...mapActions([
-        'getBlogArticleList',
-        'deleteArticle'
+        'getAllArticleList',
+        'deleteArticle',
+        'updateArticleStatus'
       ]),
       write(){
         this.$router.push({name: 'editArticle'})
@@ -155,8 +156,19 @@
           }
         })
       },
-      handleStatusChange(row){
-
+      handleStatusChange(row) {
+        let params = {
+          id: row.id,
+          status: row.status,
+        }
+        this.updateArticleStatus(params)
+          .then((data) => {
+            this.$toast('已更新')
+            this.getList()
+          })
+          .catch((err) => {
+            this.$toast(err.msg, 'error')
+          })
       },
       under(articleId) {
         console.log(articleId)
@@ -179,7 +191,7 @@
         this.getList()
       },
       getList() {
-        this.getBlogArticleList({
+        this.getAllArticleList({
           pageNo: this.page,
           pageSize: this.pageSize
         })

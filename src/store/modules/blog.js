@@ -51,10 +51,22 @@ const actions = {
       })
   },
   /**
-   * 获取文章列表
+   * 获取文章主页列表
    */
   getBlogArticleList (store, params) {
     return api.getBlogArticleList(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  /**
+   * 获取文章所有列表
+   */
+  getAllArticleList (store, params) {
+    return api.getAllArticleList(params)
       .then((data) => {
         return Promise.resolve(data.data)
       })
