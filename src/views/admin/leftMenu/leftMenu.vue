@@ -209,7 +209,7 @@ export default {
       this.$router.push({name: pageName})
     },
     // 获取菜单
-    getMenuList(){
+    async getMenuList(){
       let userId
       if (this.adminInfo) {
         userId = this.adminInfo.id

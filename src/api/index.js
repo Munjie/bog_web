@@ -23,7 +23,7 @@ axios.defaults.baseURL = (process.env.NODE_ENV === 'production' ? API_ROOT : API
 axios.defaults.headers.Accept = 'application/json'
 
 // Add a request interceptor
-axios.interceptors.request.use(function (config) {
+/*axios.interceptors.request.use(function (config) {
   // debugger
   // if (config.baseURL.endsWith('blog/')) {
   //   return
@@ -36,7 +36,7 @@ axios.interceptors.request.use(function (config) {
   return config
 }, function (error) {
   return Promise.reject(error)
-})
+})*/
 
 // Add a response interceptor
 /*axios.interceptors.response.use(function (response) {
@@ -61,7 +61,7 @@ axios.interceptors.request.use(function (config) {
   }
   return Promise.reject(error)
 })*/
-axios.interceptors.response.use(
+/*axios.interceptors.response.use(
   function (response) {
     // 检查响应的状态码
     if (response.data.code !== 200) {
@@ -78,7 +78,7 @@ axios.interceptors.response.use(
   //   console.error('请求错误:', error.message || '网络错误')
   //   return Promise.reject(new Error('请求出错'))
   // }
-)
+)*/
 
 export default {
   /**
@@ -489,6 +489,25 @@ export default {
     return axios.get('task/page-task', {
       params: params
     })
-  }
+  },
+  /**
+   * 获取所有文章列表
+   */
+  getAllUserList (params) {
+    return axios.get('system/page-all-user', {
+      params: params
+    })
+  },
+
+  listAllRole () {
+    return axios.get('system/list-all-role')
+  },
+
+  /**
+   * 注册
+   */
+  registerUser (params) {
+    return axios.post('system/register', Qs.stringify(params))
+  },
 
 }

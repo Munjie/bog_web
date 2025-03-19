@@ -17,6 +17,8 @@ const addressList = r => require.ensure([], () => r(require('VIEWS/admin/leftMen
 const moduleList = r => require.ensure([], () => r(require('VIEWS/admin/system/moduleList.vue')), 'moduleList')
 const excelView = r => require.ensure([], () => r(require('VIEWS/admin/scoreManage/excelView.vue')), 'excelView')
 const uploadScore = r => require.ensure([], () => r(require('VIEWS/admin/scoreManage/uploadScore.vue')), 'uploadScore')
+const userList = r => require.ensure([], () => r(require('VIEWS/admin/system/userList.vue')), 'userList')
+const userAdd = r => require.ensure([], () => r(require('VIEWS/admin/system/userAdd.vue')), 'userAdd')
 
 export default [
   {
@@ -178,5 +180,21 @@ export default [
     meta: {
       requireAuth: true
     }
-  }
+  },
+  {
+    path: '/admin/system/userList',
+    name: 'userList',
+    component: userList,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/admin/system/userAdd',
+    name: 'userAdd',
+    component: userAdd,
+    meta: {
+      requireAuth: true
+    }
+  },
 ]

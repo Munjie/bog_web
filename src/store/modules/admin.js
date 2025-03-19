@@ -632,7 +632,43 @@ const actions = {
       .catch((error) => {
         return Promise.reject(error)
       })
-  }
+  },
+  /**
+   * 获取用户所有列表
+   */
+  getAllUserList (store, params) {
+    return api.getAllUserList(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  /**
+   * 获取角色所有列表
+   */
+  listAllRole (store) {
+    return api.listAllRole()
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  /**
+   *
+   */
+  registerUser (store, params) {
+    return api.registerUser(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
 }
 
 export default {
