@@ -669,6 +669,15 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  deleteUser (store, params) {
+    return api.deleteUser(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
 }
 
 export default {

@@ -509,5 +509,11 @@ export default {
   registerUser (params) {
     return axios.post('system/register', Qs.stringify(params))
   },
+  /**
+   * 注册
+   */
+  deleteUser (id) {
+    return axios.get('system/delete-user/' + id)
+  },
 
 }

@@ -38,7 +38,7 @@
               type="danger"
               icon="el-icon-delete"
               circle
-              @click="deleteUser(scope.row.id)">
+              @click="remove(scope.row.id)">
             </el-button>
           </template>
         </el-table-column>
@@ -107,11 +107,8 @@
           name: 'userAdd',
         })
       },
-      deleteUser(id) {
-        console.log(id)
-        this.showDialog('此操作会将用户删除，不再显示, 是否继续?', ()=> {
-          this.deleteUser(id)
-            .then((data) => {
+      remove(id) {
+          this.deleteUser(id).then((data) => {
               this.$toast('已删除')
               this.page = 0
               this.getList()
@@ -119,8 +116,7 @@
             .catch((err)=> {
               this.$toast(err.msg, 'error')
             })
-        })
-      },
+        },
       pageChange(currentPage) {
         this.scrollToTarget(0, false)
         this.page = currentPage - 1
