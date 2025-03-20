@@ -17,7 +17,13 @@ axios.interceptors.response.use(response => {
     cachedAdminInfo.delete()
     // alert('登录已过期请重新登录')
     //弹出登录窗口
-    store.commit(IS_LOGIN, false)
+    // store.commit(IS_LOGIN, false)
+   /* router.push({
+      name: 'login',
+    })*/
+    router.push({
+      name: 'login'
+    })
     return Promise.reject(response.data)
   }
   return response.data

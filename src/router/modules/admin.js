@@ -19,8 +19,17 @@ const excelView = r => require.ensure([], () => r(require('VIEWS/admin/scoreMana
 const uploadScore = r => require.ensure([], () => r(require('VIEWS/admin/scoreManage/uploadScore.vue')), 'uploadScore')
 const userList = r => require.ensure([], () => r(require('VIEWS/admin/system/userList.vue')), 'userList')
 const userAdd = r => require.ensure([], () => r(require('VIEWS/admin/system/userAdd.vue')), 'userAdd')
+const login = r => require.ensure([], () => r(require('VIEWS/admin/auth/login.vue')), 'login')
 
 export default [
+  {
+    path: '/login',
+    name: 'login',
+    component: login,
+    meta: {
+      requireAuth: false
+    }
+  },
   {
     path: '/admin',
     name: 'adminHome',

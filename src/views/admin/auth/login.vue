@@ -69,6 +69,7 @@ export default {
     }
   },
   mounted () {
+    window.addEventListener('keydown', this.keyDown)
     if (this.adminInfo) {
       this.loginForm.userName = this.adminInfo.userName
     }
@@ -84,8 +85,17 @@ export default {
             userName: this.loginForm.userName,
             password: this.loginForm.password
           }
-          this.adminLogin(loginFormParams).then((info) => {
-              window.location.reload()
+          this.adminLogin(loginFormParams).then((data) => {
+            debugger
+            if (data.code === 200) {
+              // 跳转到原页面，否则跳到首页
+              const redirect = this.$route.query.redirect
+              if (redirect) {
+                this.$router.push(redirect)
+              } else {
+                this.$router.push('/admin')
+              }
+            }
             })
             .catch((err) => {
               // this.$toast(err, 'error')
@@ -94,7 +104,17 @@ export default {
           return false
         }
       })
+    },
+    keyDown (e) {
+      // 回车则执行登录方法，enter键的ASCII是13
+      if (e.keyCode === 13) {
+        this.submitForm()
+      }
     }
+  },
+  // 销毁事件
+  destroyed () {
+    window.removeEventListener('keydown', this.keyDown, false)
   }
 }
 </script>
