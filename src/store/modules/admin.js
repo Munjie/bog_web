@@ -678,6 +678,39 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  /**
+   * 获取所有列表
+   */
+  listAllMenu (store) {
+    return api.listAllMenu()
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  getMenusByRoleId (store, params) {
+    return api.getMenusByRoleId(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  /**
+   *
+   */
+  savePermissions (store, params) {
+    return api.savePermissions(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
 }
 
 export default {

@@ -510,10 +510,29 @@ export default {
     return axios.post('system/register', Qs.stringify(params))
   },
   /**
-   * 注册
+   * 删除用户
    */
   deleteUser (id) {
     return axios.get('system/delete-user/' + id)
   },
+
+  listAllMenu () {
+    return axios.get('system/list-all-menu')
+  },
+
+  /**
+   * 获取后台菜单
+   */
+  getMenusByRoleId (roleId) {
+    return axios.get('system/menu-tree/' + roleId)
+  },
+
+  /**
+   * 保存角色权限
+   */
+  savePermissions (params) {
+    return axios.post('system/save-permissions', Qs.stringify(params))
+  },
+
 
 }

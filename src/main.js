@@ -10,6 +10,10 @@ import photoPreview from 'COMMON/photoPreview'
 import 'UTIL/filters'
 import VueParticles from 'vue-particles'
 import axios from 'axios'
+
+
+
+Vue.prototype.resetForm = resetForm
 axios.interceptors.response.use(response => {
   console.log("response====>" + response.data)
   if (response.data.code === 1003) {
@@ -60,6 +64,7 @@ if (process.env.NODE_ENV === 'development') {
 import * as moment from 'moment'
 import {cachedAdminInfo, getAccessToken, removeAccessToken} from "./api/cacheService";
 import {IS_LOGIN, SHOW_TOKEN_ERROR} from "./store/mutation-types";
+import {resetForm} from "./util/common";
 
 Vue.use(moment)
 Vue.config.productionTip = false
