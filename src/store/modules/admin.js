@@ -51,7 +51,8 @@ const actions = {
   adminLogin (store, params) {
     return api.adminLogin(params)
       .then((data) => {
-        saveAccessToken(data.data.token, data.data.expTime)
+        alert(data.message)
+        saveAccessToken(data.data.token, data.data.expTime);
         cachedAdminInfo.save(data.data.user)
         store.commit(SET_ADMIN_INFO, data.data.user)
         store.commit(IS_LOGIN, true)

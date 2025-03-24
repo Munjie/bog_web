@@ -95,6 +95,8 @@ export default {
               } else {
                 this.$router.push('/admin')
               }
+            }else {
+              this.$toast(data)
             }
             })
             .catch((err) => {

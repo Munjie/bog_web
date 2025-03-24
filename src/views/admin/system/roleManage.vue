@@ -1,5 +1,8 @@
 <template>
   <div class="app-container">
+    <div class="button-container">
+      <el-button type="success" icon="el-icon-edit" @click="handleAdd()">新增角色</el-button>
+    </div>
     <el-table v-loading="loading" :data="roleList">
       <el-table-column type="selection"  align="center" />
       <el-table-column label="角色编号" prop="id" align="center"/>
@@ -160,13 +163,6 @@ export default {
       checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
       return checkedKeys;
     },
-    /** 根据角色ID查询菜单树结构 */
-    getRoleMenuTreeselect(roleId) {
-      return roleMenuTreeselect(roleId).then(response => {
-        this.menuOptions = response.menus;
-        return response;
-      });
-    },
     // 角色状态修改
     handleStatusChange(row) {
       let text = row.status === "0" ? "启用" : "停用";
@@ -206,17 +202,6 @@ export default {
       };
       this.resetForm("form");
     },
-    /** 搜索按钮操作 */
-    handleQuery() {
-      this.queryParams.pageNum = 1;
-      this.getList();
-    },
-    /** 重置按钮操作 */
-    resetQuery() {
-      this.dateRange = [];
-      this.resetForm("queryForm");
-      this.handleQuery();
-    },
     // 树权限（展开/折叠）
     handleCheckedTreeExpand(value, type) {
       if (type == 'menu') {
@@ -232,17 +217,16 @@ export default {
         this.$refs.menu.setCheckedNodes(value ? this.menuTree: []);
       }
     },
-    // 树权限（父子联动）
-    handleCheckedTreeConnect(value, type) {
-      if (type == 'menu') {
-        this.form.menuCheckStrictly = value ? true: false;
-      }
-    },
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
-      this.getMenuTreeselect();
-      this.open = true;
+      const roleId = 9999
+      this.getMenusByRoleId(roleId).then(res=>{
+        this.open = true;
+        this.menuTree = res;
+        // 设置默认选中的菜单
+        this.checkedMenuIds = this.getCheckedMenuIds(this.menuTree)
+      })
       this.title = "添加角色";
     },
     /** 修改按钮操作 */
@@ -264,12 +248,14 @@ export default {
       const checkedIds = this.$refs.menu.getCheckedKeys()
       let params = {
         roleId: this.selectedRoleId,
+        roleName: this.form.roleName,
         menuIds: checkedIds
       }
       this.savePermissions(params)
         .then((data) => {
           this.$toast(data.message)
           this.open = false;
+          this.getAllRole();
         })
         .catch((err) => {
           this.$toast(err.message, 'error')
@@ -325,3 +311,11 @@ export default {
   }
 };
 </script>
+<style lang="stylus" scoped>
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* 让子元素靠右对齐 */
+}
+
+</style>

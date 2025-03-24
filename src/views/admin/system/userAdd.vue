@@ -8,7 +8,7 @@
       <el-input type="password" v-model="userForm.password"></el-input>
     </el-form-item>
     <el-form-item label="角色">
-      <el-select v-model="userForm.roleId" placeholder="请选择角色">
+      <el-select v-model="userForm.roleId" multiple placeholder="请选择角色">
         <el-option
           v-for="item in roleList"
           :key="item.id"
@@ -53,9 +53,6 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.save();
-          this.$router.push({
-            name: 'userList',
-          })
         } else {
           console.log('error submit!!');
           return false;
@@ -70,7 +67,10 @@ export default {
       }
       this.registerUser(params)
         .then((data) => {
-          this.$toast('已保存')
+          this.$toast(data)
+          this.$router.push({
+            name: 'userList',
+          })
         })
         .catch((err) => {
           this.$toast(err.msg, 'error')
