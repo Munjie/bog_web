@@ -534,5 +534,12 @@ export default {
     return axios.post('system/save-permissions', Qs.stringify(params))
   },
 
+  /**
+   * 退出
+   */
+  logout () {
+    return axios.get('system/logout')
+  },
+
 
 }

@@ -65,10 +65,17 @@ const actions = {
    * 退出登录
    */
   adminSignOut (store) {
-    removeAccessToken()
-    cachedAdminInfo.delete()
-    store.commit(IS_LOGIN, false)
-    store.commit(SET_ADMIN_INFO, {})
+    return api.logout()
+      .then((data) => {
+        debugger
+        removeAccessToken()
+        cachedAdminInfo.delete()
+        store.commit(IS_LOGIN, false)
+        store.commit(SET_ADMIN_INFO, {})
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
   },
   /**
    * 获取七牛token
