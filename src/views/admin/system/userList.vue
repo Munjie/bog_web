@@ -2,7 +2,7 @@
   <div id="article-manage">
     <div class="article-table-wrap">
       <div class="button-container">
-      <el-button type="primary" icon="el-icon-edit" @click="addUser()">新增用户</el-button>
+      <el-button type="primary" icon="el-icon-edit" @click="openAddDialog()">新增用户</el-button>
       </div>
       <el-table
         :data="userList"
@@ -16,10 +16,19 @@
           show-overflow-tooltip
           align="center">
         </el-table-column>
-        <el-table-column
-          prop="roleName"
-          label="角色"
-          align="center">
+        <el-table-column label="角色" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              v-for="(roleName, index) in scope.row.roleName"
+              :key="index"
+              type="success"
+              effect="dark"
+              style="margin-right: 5px; margin-bottom: 5px;"
+            >
+              {{ roleName }}
+            </el-tag>
+            <span v-if="!scope.row.roleName || scope.row.roleName.length === 0">无角色</span>
+          </template>
         </el-table-column>
         <el-table-column
           label="操作"
@@ -31,7 +40,7 @@
               icon="el-icon-edit"
               type="primary"
               circle
-              @click="edit(scope.row.id)">
+              @click="openEditDialog(scope.row)">
             </el-button>
             <el-button
               size="mini"
@@ -58,6 +67,31 @@
       </div>
       <!-- 分页 结束 -->
     </div>
+    <!-- 新增/编辑用户对话框 -->
+    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
+      <el-form :model="form" label-width="80px">
+        <el-form-item label="用户名">
+          <el-input v-model="form.userName"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="form.password" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="角色">
+          <el-select v-model="form.roleIds" multiple placeholder="请选择角色">
+            <el-option
+              v-for="role in roles"
+              :key="role.id"
+              :label="role.roleName"
+              :value="role.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="saveUser">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -77,6 +111,19 @@
     mixins: [scroll],
     data () {
       return {
+        // 弹出层标题
+        title: "",
+        // 是否显示弹出层
+        open: false,
+        form: {
+          id: null,
+          userName: '',
+          password: '',
+          roleIds: []
+        },
+        dialogVisible: false,
+        dialogTitle: '',
+        roles: [],
         userList: [],
         page: 0,
         pageSize: 15,
@@ -87,18 +134,73 @@
     created() {
       this.page = 0
       this.getList()
+      this.loadRoles()
     },
     methods: {
       ...mapActions([
         'getAllUserList',
         'deleteUser',
+        'listAllRole',
+        'registerUser',
       ]),
-      edit(articleId) {
-        console.log(articleId)
+      openAddDialog() {
+        this.title = '新增用户'
+        this.form = { id: null, userName: '', password: '', roleId: [] }
+        this.open = true
+      },
+      openEditDialog(user) {
+        this.title = '编辑用户'
+        this.form = {
+          id: user.id,
+          userName: user.userName,
+          password: user.password,
+          roleIds: Array.isArray(user.roleIds) ? [...user.roleIds] : []
+        }
+        this.open = true
+      },
+      // 取消按钮
+      cancel() {
+        this.open = false;
+      },
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(() => {
+            done()
+          })
+          .catch(() => {})
+      },
+      async loadRoles(){
+        this.listAllRole().then(res => {
+          this.roles = res
+        })
+          .catch(() => {
+            this.roles = []
+          })
+      },
+      async saveUser() {
+        let params = {
+          userName: this.form.userName,
+          password: this.form.password,
+          roleIds: this.form.roleIds,
+          id: this.form.id,
+        }
+        this.registerUser(params)
+          .then((data) => {
+            this.$toast(data)
+            this.$router.push({
+              name: 'userList',
+            })
+          })
+          .catch((err) => {
+            this.$toast(err.msg, 'error')
+          })
+      },
+      edit(id) {
+        console.log(id)
         this.$router.push({
-          name: 'editUser',
+          name: 'userAdd',
           query: {
-            id: articleId
+            id: id
           }
         })
       },
@@ -193,5 +295,20 @@
 .button-container {
   display: flex;
   justify-content: flex-end; /* 让子元素靠右对齐 */
+}
+.user-manage {
+  padding: 20px;
+}
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.el-select {
+  width: 100%;
+}
+.el-tag {
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 </style>
