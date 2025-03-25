@@ -149,12 +149,6 @@ export default {
           this.roleList = []
         })
     },
-    /** 查询菜单树结构 */
-    getMenuTreeselect() {
-      menuTreeselect().then(response => {
-        this.menuOptions = response.data;
-      });
-    },
     // 所有菜单节点数据
     getMenuAllCheckedKeys() {
       // 目前被选中的菜单节点
@@ -303,7 +297,7 @@ export default {
     handleDelete(row) {
       const id = row.id;
       this.deleteRole(id).then((data) => {
-        this.$toast('已删除')
+        this.$toast(data.message)
         this.getAllRole()
       })
         .catch((err)=> {

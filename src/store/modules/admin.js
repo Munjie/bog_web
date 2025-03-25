@@ -673,7 +673,7 @@ const actions = {
   registerUser (store, params) {
     return api.registerUser(params)
       .then((data) => {
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       })
       .catch((error) => {
         return Promise.reject(error)
@@ -682,7 +682,7 @@ const actions = {
   deleteUser (store, params) {
     return api.deleteUser(params)
       .then((data) => {
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       })
       .catch((error) => {
         return Promise.reject(error)
@@ -715,7 +715,7 @@ const actions = {
   savePermissions (store, params) {
     return api.savePermissions(params)
       .then((data) => {
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       })
       .catch((error) => {
         return Promise.reject(error)
@@ -724,7 +724,7 @@ const actions = {
   deleteRole (store, params) {
     return api.deleteRole(params)
       .then((data) => {
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       })
       .catch((error) => {
         return Promise.reject(error)

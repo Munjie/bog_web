@@ -186,7 +186,7 @@
         }
         this.registerUser(params)
           .then((data) => {
-            this.$toast(data)
+            this.$toast(data.message)
             this.open = false;
             this.page = 0
             this.getList()
@@ -197,7 +197,7 @@
       },
       remove(id) {
           this.deleteUser(id).then((data) => {
-              this.$toast('已删除')
+              this.$toast(data.message)
               this.page = 0
               this.getList()
             })
