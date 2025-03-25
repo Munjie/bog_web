@@ -136,6 +136,7 @@ export default {
       'listAllRole',
       'getMenusByRoleId',
       'savePermissions',
+      'deleteRole',
     ]),
     /** 查询角色列表 */
     getAllRole(){
@@ -300,13 +301,14 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const roleIds = row.roleId || this.ids;
-      this.$modal.confirm('是否确认删除角色编号为"' + roleIds + '"的数据项？').then(function() {
-        return delRole(roleIds);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+      const id = row.id;
+      this.deleteRole(id).then((data) => {
+        this.$toast('已删除')
+        this.getAllRole()
+      })
+        .catch((err)=> {
+          this.$toast(err.msg, 'error')
+        })
     },
   }
 };

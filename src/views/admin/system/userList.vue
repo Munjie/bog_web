@@ -187,27 +187,13 @@
         this.registerUser(params)
           .then((data) => {
             this.$toast(data)
-            this.$router.push({
-              name: 'userList',
-            })
+            this.open = false;
+            this.page = 0
+            this.getList()
           })
           .catch((err) => {
             this.$toast(err.msg, 'error')
           })
-      },
-      edit(id) {
-        console.log(id)
-        this.$router.push({
-          name: 'userAdd',
-          query: {
-            id: id
-          }
-        })
-      },
-      addUser() {
-        this.$router.push({
-          name: 'userAdd',
-        })
       },
       remove(id) {
           this.deleteUser(id).then((data) => {

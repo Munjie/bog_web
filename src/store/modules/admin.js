@@ -721,6 +721,15 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  deleteRole (store, params) {
+    return api.deleteRole(params)
+      .then((data) => {
+        return Promise.resolve(data.data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
 }
 
 export default {

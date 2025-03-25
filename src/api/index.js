@@ -541,5 +541,12 @@ export default {
     return axios.get('system/logout')
   },
 
+  /**
+   * 删除角色
+   */
+  deleteRole (id) {
+    return axios.get('system/delete-role/' + id)
+  },
+
 
 }

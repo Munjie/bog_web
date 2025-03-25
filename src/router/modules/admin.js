@@ -18,7 +18,6 @@ const moduleList = r => require.ensure([], () => r(require('VIEWS/admin/system/m
 const excelView = r => require.ensure([], () => r(require('VIEWS/admin/scoreManage/excelView.vue')), 'excelView')
 const uploadScore = r => require.ensure([], () => r(require('VIEWS/admin/scoreManage/uploadScore.vue')), 'uploadScore')
 const userList = r => require.ensure([], () => r(require('VIEWS/admin/system/userList.vue')), 'userList')
-const userAdd = r => require.ensure([], () => r(require('VIEWS/admin/system/userAdd.vue')), 'userAdd')
 const login = r => require.ensure([], () => r(require('VIEWS/admin/auth/login.vue')), 'login')
 
 const menuList = r => require.ensure([], () => r(require('VIEWS/admin/system/menuList.vue')), 'menuList')
@@ -198,14 +197,6 @@ export default [
     path: '/admin/system/userList',
     name: 'userList',
     component: userList,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: '/admin/system/userAdd',
-    name: 'userAdd',
-    component: userAdd,
     meta: {
       requireAuth: true
     }
