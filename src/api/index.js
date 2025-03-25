@@ -548,5 +548,18 @@ export default {
     return axios.get('system/delete-role/' + id)
   },
 
+  /**
+   * 删除菜单
+   */
+  deleteMenu (id) {
+    return axios.get('system/delete-menu/' + id)
+  },
+
+  /**
+   * 保存角色权限
+   */
+  saveMenu (params) {
+    return axios.post('system/save-menu', Qs.stringify(params))
+  },
 
 }

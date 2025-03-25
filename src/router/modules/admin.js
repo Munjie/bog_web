@@ -21,7 +21,6 @@ const userList = r => require.ensure([], () => r(require('VIEWS/admin/system/use
 const login = r => require.ensure([], () => r(require('VIEWS/admin/auth/login.vue')), 'login')
 
 const menuList = r => require.ensure([], () => r(require('VIEWS/admin/system/menuList.vue')), 'menuList')
-const permissionManage = r => require.ensure([], () => r(require('VIEWS/admin/system/permissionManage.vue')), 'permissionManage')
 const roleManage = r => require.ensure([], () => r(require('VIEWS/admin/system/roleManage.vue')), 'roleManage')
 
 export default [
@@ -205,14 +204,6 @@ export default [
     path: '/admin/system/menuList',
     name: 'menuList',
     component: menuList,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: '/admin/system/permissionManage',
-    name: 'permissionManage',
-    component: permissionManage,
     meta: {
       requireAuth: true
     }

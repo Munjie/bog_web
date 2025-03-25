@@ -730,6 +730,24 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  deleteMenu (store, params) {
+    return api.deleteMenu(params)
+      .then((data) => {
+        return Promise.resolve(data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  saveMenu (store, params) {
+    return api.saveMenu(params)
+      .then((data) => {
+        return Promise.resolve(data)
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
 }
 
 export default {
