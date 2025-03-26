@@ -217,9 +217,11 @@
           pageSize: this.pageSize
         })
           .then((data) => {
-            this.total = data.total
-            this.userList = data.records
-            console.log(this.userList)
+            if (data.code !== 200) {
+              this.$toast(data.message)
+            }
+            this.total = data.data.total;
+            this.userList = data.data.records
           })
           .catch(()=> {
             this.userList = []

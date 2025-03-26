@@ -109,8 +109,11 @@ export default {
       'saveMenu',
     ]),
     async loadMenuList(){
-      this.listAllMenu().then(res => {
-        this.menuList = res
+      this.listAllMenu().then(data => {
+        if (data.code !== 200) {
+          this.$toast(data.message)
+        }
+        this.menuList = data.data
       })
         .catch(() => {
           this.menuList = []

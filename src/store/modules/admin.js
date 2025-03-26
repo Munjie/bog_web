@@ -649,7 +649,7 @@ const actions = {
   getAllUserList (store, params) {
     return api.getAllUserList(params)
       .then((data) => {
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       })
       .catch((error) => {
         return Promise.reject(error)
@@ -661,7 +661,7 @@ const actions = {
   listAllRole (store) {
     return api.listAllRole()
       .then((data) => {
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       })
       .catch((error) => {
         return Promise.reject(error)
@@ -694,7 +694,7 @@ const actions = {
   listAllMenu (store) {
     return api.listAllMenu()
       .then((data) => {
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       })
       .catch((error) => {
         return Promise.reject(error)

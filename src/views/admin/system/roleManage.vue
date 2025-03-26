@@ -141,8 +141,11 @@ export default {
     /** 查询角色列表 */
     getAllRole(){
       this.loading = true;
-      this.listAllRole().then(res => {
-        this.roleList = res
+      this.listAllRole().then(data => {
+        if (data.code !== 200) {
+          this.$toast(data.message)
+        }
+        this.roleList = data.data
         this.loading = false;
       })
         .catch(() => {
