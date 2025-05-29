@@ -1,6 +1,6 @@
 前端3.0
  1.下载 node js  v16.20 ;;https://nodejs.org/dist/v16.20.0/
- 2.、取消ssl验证：
+ 2.、取消ssl验证：test
 
 npm config set strict-ssl false
 
